@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="711ef20ca7f74f8ba1838ebe6597ff75" Name="Diagram1">
+        <EntityTypeShape EntityType="DBAcess.DBObjects.Usuario" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBAcess.DBObjects.Animai" Width="1.5" PointX="5.625" PointY="1" />
+        <EntityTypeShape EntityType="DBAcess.DBObjects.AnimaisCategoria" Width="1.5" PointX="3.375" PointY="1.375" />
+        <AssociationConnector Association="DBAcess.DBObjects.FK__Animais__AnimalC__3B75D760" />
+        <EntityTypeShape EntityType="DBAcess.DBObjects.Propaganda" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DBAcess.DBObjects.cidade" Width="1.5" PointX="3.375" PointY="8.875" />
+        <EntityTypeShape EntityType="DBAcess.DBObjects.estado" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DBAcess.DBObjects.SituacaoAnimal" Width="1.5" PointX="3.375" PointY="5.875" />
+        <AssociationConnector Association="DBAcess.DBObjects.FK__Animais__CidadeI__6B24EA82" />
+        <AssociationConnector Association="DBAcess.DBObjects.FK__Animais__Situaca__5EBF139D" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

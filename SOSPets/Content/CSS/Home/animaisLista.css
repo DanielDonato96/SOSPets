@@ -1,0 +1,46 @@
+﻿table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.square {
+    cursor: pointer;
+    background: #0094ff;
+    width: 36px;
+    height: 28px;
+}
+
+.square p {
+    color: #fff;
+}
+
+.squareCurrentPage {
+    background: #191919;
+    width: 36px;
+    height: 28px;
+}
+
+.squareCurrentPage p {
+     color: #fff;
+}
+
+.pagination-container {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}

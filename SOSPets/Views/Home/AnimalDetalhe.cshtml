@@ -1,0 +1,138 @@
+﻿@model SOSPets.Models.AnimalInfo
+@{
+    ViewBag.Title = "Novo Animal";
+}
+
+<div>
+    <h2> @ViewBag.Title </h2>
+
+    @if (ViewBag.NovoRegistro)
+    {
+        <form id="form_cadastro_animal" method="post" class="form_cadastro_animal" enctype="multipart/form-data" action="/Home/SaveAnimal">
+            <div class="form-group">
+                <label for="animalID" class="control-label">ID:</label>
+                <input class="form-control" id="animalID" name="animalID" readonly value="" /><br />
+            </div>
+            <div class="form-group">
+                <label for="nome_animal" class="control-label">Nome:</label>
+                <input class="form-control" type="text" id="nome_animal" name="nome_animal" value="" required><br />
+            </div>
+            <div class="form-group">
+                <label for="especie" class="control-label">Espécie:</label>
+                <select class="form-control" id="especie" name="especie">
+                    @foreach (var especie in ViewBag.Especies)
+                    {
+                        if (Model.AnimalCategoriaID == especie.AnimalCategoriaID)
+                        {
+                            <option value="@especie.AnimalCategoriaID" selected>@especie.Nome</option>
+                        }
+                        else
+                        {
+                            <option value="@especie.AnimalCategoriaID">@especie.Nome</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="whatsapp" class="control-label">Contato Dono:</label>
+                <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="" required><br />
+            </div>
+            <div class="form-group new_data_desaparecimento_container">
+                <label for="new_data_desaparecimento" class="control-label">Preencha a data de desaparecimento:</label>
+                <input class="form-control" id="new_data_desaparecimento" name="new_data_desaparecimento" value="" type="datetime-local">
+            </div>
+            <div class="form-group data_desaparecimento_readonly_container" style="display:none;">
+                <label for="data_desaparecimento_readonly" class="control-label">Desapareceu Em:</label>
+                <input class="form-control" id="data_desaparecimento_readonly" name="data_desaparecimento_readonly" value="" readonly>
+            </div>
+            <div class="form-group">
+                <label for="new_img_animal" class="control-label">Carregue uma foto do Animal:</label>
+                <input class="form-control" type="file" id="new_img_animal" name="new_img_animal" accept="image/*">
+            </div>
+            <div class="form-group foto_animal_cadastrado" style="display:none;">
+                <label for="img_animal" class="control-label">Foto atual do Animal:</label>
+                <img class="form-control" style="width:200px!important;height:200px!important" id="img_animal" name="img_animal" width="200" height="200" src="" alt="" />
+            </div>
+            <input type="submit" value="Salvar"> <br /> <br />
+            <input id="btn_delete_animal" style="display:none;" type="button" value="Deletar" data-toggle="modal" data-target="#deleteAnimaisConfirmation" />
+        </form>
+    }
+    else
+    {
+        if (ViewBag.NaoEncontrado)
+        {
+            <span> Registro não encontrado em nosso sistema.</span>
+        }
+        else
+        {
+            <form id="form_cadastro_animal" method="post" class="form_cadastro_animal" enctype="multipart/form-data" action="/Home/SaveAnimal">
+                <div class="form-group">
+                    <label for="animalID" class="control-label">ID:</label>
+                    <input class="form-control" id="animalID" name="animalID" readonly value="@Model.AnimalID" /><br />
+                </div>
+                <div class="form-group">
+                    <label for="nome_animal" class="control-label">Nome:</label>
+                    <input class="form-control" type="text" id="nome_animal" name="nome_animal" value="@Model.Nome" required><br />
+                </div>
+                <div class="form-group">
+                    <label for="especie" class="control-label">Espécie:</label>
+                    <select class="form-control" id="especie" name="especie">
+                        @foreach (var especie in ViewBag.Especies)
+                        {
+                            if (Model.AnimalCategoriaID == especie.AnimalCategoriaID)
+                            {
+                                <option value="@especie.AnimalCategoriaID" selected>@especie.Nome</option>
+                            }
+                            else
+                            {
+                                <option value="@especie.AnimalCategoriaID">@especie.Nome</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp" class="control-label">Contato Dono:</label>
+                    <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="@Model.Whatsapp" required><br />
+                </div>
+                <div class="form-group data_desaparecimento_readonly_container">
+                    <label for="data_desaparecimento_readonly" class="control-label">Desapareceu Em:</label>
+                    <input class="form-control" id="data_desaparecimento_readonly" name="data_desaparecimento_readonly" value="@Model.DataDesaparecimento.ToString("dd/MM/yyyy")" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="new_img_animal" class="control-label">Carregue uma foto do Animal:</label>
+                    <input class="form-control" type="file" id="new_img_animal" name="new_img_animal" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="img_animal" class="control-label">Foto atual do Animal:</label>
+                    <img class="form-control" style="width:200px!important;height:200px!important" id="img_animal" name="img_animal" width="200" height="200" src="@ViewBag.FotoAnimalPath/@Model.FotoUrl" alt="@Model.Nome" />
+                </div>
+                <input type="submit" value="Salvar"> <br /> <br />
+                <input id="btn_delete_animal" type="button" value="Deletar" data-toggle="modal" data-target="#deleteAnimaisConfirmation" />
+            </form>
+        }
+    }
+</div>
+
+@*Modal para confirmar exclusão de Animais *@
+<div class="modal fade" id="deleteAnimaisConfirmation" tabindex="-1" role="dialog" aria-labelledby="animaisCategoriasModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="animaisModal">Confirmar Exclusão</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Deseja deletar esse animal?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="deletarAnimal()">Sim</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/Home/animalDetalhe.js"></script>

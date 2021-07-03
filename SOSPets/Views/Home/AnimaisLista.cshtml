@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SOSPets.Models.AnimalInfo>
+<head>
+    <link rel="stylesheet" href="~/Content/CSS/Home/animaisLista.css">
+</head>
+
+<div>
+    <a href="/Home/AnimalDetalhe/"> <input style="margin:5px;float:right;" type="button" value="Novo">  </a>
+    @if (Model.Any())
+    {
+
+        <center><h2>Animais Desaparecidos</h2> </center>
+        <table>
+
+            <tr>
+                <th>Nome</th>
+                <th>Desapareceu em</th>
+                <th>Espécie</th>
+                <th>Editar</th>
+            </tr>
+
+            @foreach (var animal in Model)
+            {
+                <tr>
+                    <td>@animal.Nome</td>
+                    <td>@animal.DataDesaparecimento.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td>@animal.Especie</td>
+                    <td><a href="/Home/AnimalDetalhe/?animalID=@animal.AnimalID">Editar</a></td>
+                </tr>
+            }
+        </table>
+
+        <br />
+
+        <center>
+            <div class="pagination-container">
+                @foreach (var backwardPage in ViewBag.BackwardPages)
+                {
+
+                    <a href="/Home/AnimaisLista/?pagina=@backwardPage">
+                        <div class="square">
+                            <p>
+                                @backwardPage
+                            </p>
+                        </div>
+                    </a>
+
+                }
+
+                <div class="squareCurrentPage">
+                    <p> @ViewBag.CurrentPage</p>
+                </div>
+
+                @foreach (var forwardPage in ViewBag.ForwardPages)
+                {
+                    <a href="/Home/AnimaisLista/?pagina=@forwardPage">
+                        <div class="square">
+                            <p>
+                                @forwardPage
+                            </p>
+                        </div>
+                    </a>
+
+                }
+            </div>
+        </center>
+
+    }
+    else
+    {
+        <h2> Nenhum animal encontrado</h2>
+    }
+
+</div>

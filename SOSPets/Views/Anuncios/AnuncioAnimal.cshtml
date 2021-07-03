@@ -1,0 +1,147 @@
+﻿@model SOSPets.Models.AnuncioAnimal
+@{
+    ViewBag.Title = Model.animal.Descricao;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        h2 {
+            padding-left: 18px;
+        }
+
+        .animal-nome {
+            padding-left: 40px;
+            font-size: 16px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+        .label {
+
+        }
+
+        .big-label {
+            font-size: 20px;
+            padding: 10px 15px;
+            display: block;
+            width: 38vw;
+        }
+
+        .status-grey {
+            color: #fff;
+            background-color: lightgrey;
+            border-color: #ccc;
+        }
+
+        .status-red {
+            color: #fff;
+            background-color: red;
+            border-color: #ccc;
+        }
+
+        .status-green {
+            color: #fff;
+            background-color: green;
+            border-color: #ccc;
+        }
+
+        .animal-descricao {
+            
+        }
+
+        @@media(min-width:668px){
+            .data-animal-desaparecimento-mobile {
+                display:none;
+            }
+
+            .animal-descricao-mobile {
+                display: none;
+            }
+        }
+
+        @@media(max-width:667px) {
+            .card {
+                width: 70%;
+                margin-top: 8px;
+            }
+
+            .big-label {
+                width: 50vw;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .animal-nome {
+                padding-left: 20px;
+            }
+
+            .data-animal-desaparecimento {
+                display:none;
+            }
+
+            .animal-descricao {
+                display:none;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dados-animal">
+
+        <h2>Dados do Animal</h2>
+
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <img src="@ViewBag.FotoAnimalPath/@Model.animal.FotoUrl" alt="@Model.animal.NomeAnimal" style="width:100%">
+                    <div class="container">
+                        <h4 class="animal-nome"><b>@Model.animal.NomeAnimal (@Model.animal.CategoriaAnimal)</b></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="container">
+                        <h4 class="data-animal-desaparecimento">Desapareceu em: @Model.animal.DtDesaparecimento </h4>
+                        <h4 class="data-animal-desaparecimento-mobile"> Desapareceu em:</h4>
+                        <span class="data-animal-desaparecimento-mobile">@Model.animal.DtDesaparecimento</span>
+                        <span style="margin-bottom: 10px;" class="label big-label @Model.animal.StatusAnimal">@Model.animal.SituacaoAnimal</span>
+                        <p>Estado: @Model.animal.Estado - (@Model.animal.UF)</p>
+                        <p>Cidade: @Model.animal.Cidade</p>
+                        <p>Bairro: @Model.animal.Bairro</p>
+                        <p>Entrar em Contato pelo número: @Model.animal.Whatsapp</p>
+                        <h4>Informações adicionais:</h4>
+                        <p class="animal-descricao">@Model.animal.Descricao</p>
+                        <p class="animal-descricao-mobile">@Model.animal.Descricao</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</body>
+

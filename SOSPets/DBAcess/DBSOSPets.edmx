@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBAcess.DBObjects.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Animais">
+          <Key>
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="AnimalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DtDesaparecimento" Type="datetime" />
+          <Property Name="FotoUrl" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Whatsapp" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="AnimalCategoriaID" Type="int" Nullable="false" />
+          <Property Name="excluido" Type="bit" Nullable="false" />
+          <Property Name="SituacaoAnimalID" Type="int" Nullable="false" />
+          <Property Name="CidadeID" Type="int" Nullable="false" />
+          <Property Name="FriendlyUrl" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Bairro" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AnimaisCategoria">
+          <Key>
+            <PropertyRef Name="AnimalCategoriaID" />
+          </Key>
+          <Property Name="AnimalCategoriaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="120" />
+          <Property Name="uf" Type="int" />
+          <Property Name="ibge" Type="int" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="75" />
+          <Property Name="uf" Type="varchar" MaxLength="2" />
+          <Property Name="ibge" Type="int" />
+          <Property Name="pais" Type="int" />
+          <Property Name="ddd" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Propaganda">
+          <Key>
+            <PropertyRef Name="PropagandaID" />
+          </Key>
+          <Property Name="PropagandaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PropagandaLogo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PropagandaUrl" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="Excluido" Type="bit" />
+        </EntityType>
+        <EntityType Name="SituacaoAnimal">
+          <Key>
+            <PropertyRef Name="SituacaoAnimalID" />
+          </Key>
+          <Property Name="SituacaoAnimalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="ClassName" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Animais__AnimalC__3B75D760">
+          <End Role="AnimaisCategoria" Type="Self.AnimaisCategoria" Multiplicity="1" />
+          <End Role="Animais" Type="Self.Animais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimaisCategoria">
+              <PropertyRef Name="AnimalCategoriaID" />
+            </Principal>
+            <Dependent Role="Animais">
+              <PropertyRef Name="AnimalCategoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Animais__CidadeI__6B24EA82">
+          <End Role="cidade" Type="Self.cidade" Multiplicity="1" />
+          <End Role="Animais" Type="Self.Animais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Animais">
+              <PropertyRef Name="CidadeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Animais__Situaca__5EBF139D">
+          <End Role="SituacaoAnimal" Type="Self.SituacaoAnimal" Multiplicity="1" />
+          <End Role="Animais" Type="Self.Animais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SituacaoAnimal">
+              <PropertyRef Name="SituacaoAnimalID" />
+            </Principal>
+            <Dependent Role="Animais">
+              <PropertyRef Name="SituacaoAnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="proc_001_GetAnimalDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AnimalID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DBAcessDBObjectsStoreContainer">
+          <EntitySet Name="Animais" EntityType="Self.Animais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnimaisCategoria" EntityType="Self.AnimaisCategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cidade" EntityType="Self.cidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="estado" EntityType="Self.estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Propaganda" EntityType="Self.Propaganda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SituacaoAnimal" EntityType="Self.SituacaoAnimal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Animais__AnimalC__3B75D760" Association="Self.FK__Animais__AnimalC__3B75D760">
+            <End Role="AnimaisCategoria" EntitySet="AnimaisCategoria" />
+            <End Role="Animais" EntitySet="Animais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Animais__CidadeI__6B24EA82" Association="Self.FK__Animais__CidadeI__6B24EA82">
+            <End Role="cidade" EntitySet="cidade" />
+            <End Role="Animais" EntitySet="Animais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Animais__Situaca__5EBF139D" Association="Self.FK__Animais__Situaca__5EBF139D">
+            <End Role="SituacaoAnimal" EntitySet="SituacaoAnimal" />
+            <End Role="Animais" EntitySet="Animais" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBAcess.DBObjects" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="SOSPETSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Animais" EntityType="DBAcess.DBObjects.Animai" />
+          <EntitySet Name="AnimaisCategorias" EntityType="DBAcess.DBObjects.AnimaisCategoria" />
+          <AssociationSet Name="FK__Animais__AnimalC__3B75D760" Association="DBAcess.DBObjects.FK__Animais__AnimalC__3B75D760">
+            <End Role="AnimaisCategoria" EntitySet="AnimaisCategorias" />
+            <End Role="Animai" EntitySet="Animais" />
+          </AssociationSet>
+          <EntitySet Name="Propaganda" EntityType="DBAcess.DBObjects.Propaganda" />
+          <EntitySet Name="cidade" EntityType="DBAcess.DBObjects.cidade" />
+          <EntitySet Name="estado" EntityType="DBAcess.DBObjects.estado" />
+          <EntitySet Name="SituacaoAnimal" EntityType="DBAcess.DBObjects.SituacaoAnimal" />
+          <AssociationSet Name="FK__Animais__CidadeI__6B24EA82" Association="DBAcess.DBObjects.FK__Animais__CidadeI__6B24EA82">
+            <End Role="cidade" EntitySet="cidade" />
+            <End Role="Animai" EntitySet="Animais" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Animais__Situaca__5EBF139D" Association="DBAcess.DBObjects.FK__Animais__Situaca__5EBF139D">
+            <End Role="SituacaoAnimal" EntitySet="SituacaoAnimal" />
+            <End Role="Animai" EntitySet="Animais" />
+          </AssociationSet>
+          <FunctionImport Name="proc_001_GetAnimalDetail" ReturnType="Collection(DBAcess.DBObjects.vwAnimalDetail)">
+          <Parameter Name="AnimalID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Animai">
+          <Key>
+            <PropertyRef Name="AnimalID" />
+          </Key>
+          <Property Name="AnimalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DtDesaparecimento" Type="DateTime" Precision="3" />
+          <Property Name="FotoUrl" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Whatsapp" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="AnimalCategoriaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AnimaisCategoria" Relationship="DBAcess.DBObjects.FK__Animais__AnimalC__3B75D760" FromRole="Animai" ToRole="AnimaisCategoria" />
+          <Property Name="excluido" Type="Boolean" Nullable="false" />
+          <Property Name="SituacaoAnimalID" Type="Int32" Nullable="false" />
+          <Property Name="CidadeID" Type="Int32" Nullable="false" />
+          <Property Name="FriendlyUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cidade" Relationship="DBAcess.DBObjects.FK__Animais__CidadeI__6B24EA82" FromRole="Animai" ToRole="cidade" />
+          <NavigationProperty Name="SituacaoAnimal" Relationship="DBAcess.DBObjects.FK__Animais__Situaca__5EBF139D" FromRole="Animai" ToRole="SituacaoAnimal" />
+          <Property Name="Bairro" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AnimaisCategoria">
+          <Key>
+            <PropertyRef Name="AnimalCategoriaID" />
+          </Key>
+          <Property Name="AnimalCategoriaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Animais" Relationship="DBAcess.DBObjects.FK__Animais__AnimalC__3B75D760" FromRole="AnimaisCategoria" ToRole="Animai" />
+        </EntityType>
+        <Association Name="FK__Animais__AnimalC__3B75D760">
+          <End Type="DBAcess.DBObjects.AnimaisCategoria" Role="AnimaisCategoria" Multiplicity="1" />
+          <End Type="DBAcess.DBObjects.Animai" Role="Animai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimaisCategoria">
+              <PropertyRef Name="AnimalCategoriaID" />
+            </Principal>
+            <Dependent Role="Animai">
+              <PropertyRef Name="AnimalCategoriaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Propaganda">
+          <Key>
+            <PropertyRef Name="PropagandaID" />
+          </Key>
+          <Property Name="PropagandaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PropagandaLogo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PropagandaUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="Excluido" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="cidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="uf" Type="Int32" />
+          <Property Name="ibge" Type="Int32" />
+          <NavigationProperty Name="Animais" Relationship="DBAcess.DBObjects.FK__Animais__CidadeI__6B24EA82" FromRole="cidade" ToRole="Animai" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="uf" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ibge" Type="Int32" />
+          <Property Name="pais" Type="Int32" />
+          <Property Name="ddd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SituacaoAnimal">
+          <Key>
+            <PropertyRef Name="SituacaoAnimalID" />
+          </Key>
+          <Property Name="SituacaoAnimalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="ClassName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Animais" Relationship="DBAcess.DBObjects.FK__Animais__Situaca__5EBF139D" FromRole="SituacaoAnimal" ToRole="Animai" />
+        </EntityType>
+        <Association Name="FK__Animais__CidadeI__6B24EA82">
+          <End Type="DBAcess.DBObjects.cidade" Role="cidade" Multiplicity="1" />
+          <End Type="DBAcess.DBObjects.Animai" Role="Animai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Animai">
+              <PropertyRef Name="CidadeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Animais__Situaca__5EBF139D">
+          <End Type="DBAcess.DBObjects.SituacaoAnimal" Role="SituacaoAnimal" Multiplicity="1" />
+          <End Type="DBAcess.DBObjects.Animai" Role="Animai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SituacaoAnimal">
+              <PropertyRef Name="SituacaoAnimalID" />
+            </Principal>
+            <Dependent Role="Animai">
+              <PropertyRef Name="SituacaoAnimalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="vwAnimalDetail">
+          <Property Type="Int32" Name="AnimalID" Nullable="false" />
+          <Property Type="String" Name="FotoUrl" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="Whatsapp" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NomeAnimal" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="FriendlyUrl" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CategoriaAnimal" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="SituacaoAnimal" Nullable="false" MaxLength="90" />
+          <Property Type="String" Name="StatusAnimal" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Cidade" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="75" />
+          <Property Type="String" Name="DtDesaparecimento" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="Bairro" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBAcessDBObjectsStoreContainer" CdmEntityContainer="SOSPETSEntities">
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DBAcess.DBObjects.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Animais">
+            <EntityTypeMapping TypeName="DBAcess.DBObjects.Animai">
+              <MappingFragment StoreEntitySet="Animais">
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
+                <ScalarProperty Name="CidadeID" ColumnName="CidadeID" />
+                <ScalarProperty Name="SituacaoAnimalID" ColumnName="SituacaoAnimalID" />
+                <ScalarProperty Name="excluido" ColumnName="excluido" />
+                <ScalarProperty Name="AnimalCategoriaID" ColumnName="AnimalCategoriaID" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="FotoUrl" ColumnName="FotoUrl" />
+                <ScalarProperty Name="DtDesaparecimento" ColumnName="DtDesaparecimento" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnimaisCategorias">
+            <EntityTypeMapping TypeName="DBAcess.DBObjects.AnimaisCategoria">
+              <MappingFragment StoreEntitySet="AnimaisCategoria">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="AnimalCategoriaID" ColumnName="AnimalCategoriaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Propaganda">
+            <EntityTypeMapping TypeName="DBAcess.DBObjects.Propaganda">
+              <MappingFragment StoreEntitySet="Propaganda">
+                <ScalarProperty Name="Excluido" ColumnName="Excluido" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="PropagandaUrl" ColumnName="PropagandaUrl" />
+                <ScalarProperty Name="PropagandaLogo" ColumnName="PropagandaLogo" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="PropagandaID" ColumnName="PropagandaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cidade">
+            <EntityTypeMapping TypeName="DBAcess.DBObjects.cidade">
+              <MappingFragment StoreEntitySet="cidade">
+                <ScalarProperty Name="ibge" ColumnName="ibge" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estado">
+            <EntityTypeMapping TypeName="DBAcess.DBObjects.estado">
+              <MappingFragment StoreEntitySet="estado">
+                <ScalarProperty Name="ddd" ColumnName="ddd" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="ibge" ColumnName="ibge" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SituacaoAnimal">
+            <EntityTypeMapping TypeName="DBAcess.DBObjects.SituacaoAnimal">
+              <MappingFragment StoreEntitySet="SituacaoAnimal">
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="SituacaoAnimalID" ColumnName="SituacaoAnimalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="proc_001_GetAnimalDetail" FunctionName="DBAcess.DBObjects.Store.proc_001_GetAnimalDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalDetail">
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="FotoUrl" ColumnName="FotoUrl" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="NomeAnimal" ColumnName="NomeAnimal" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
+                <ScalarProperty Name="CategoriaAnimal" ColumnName="CategoriaAnimal" />
+                <ScalarProperty Name="SituacaoAnimal" ColumnName="SituacaoAnimal" />
+                <ScalarProperty Name="StatusAnimal" ColumnName="StatusAnimal" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="DtDesaparecimento" ColumnName="DtDesaparecimento" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
