@@ -3,7 +3,9 @@
 $(function () {
     
     if ($('.carousel-item').length > 1) setCarouselPropagandas(); 
-    getEstados();
+    getAnimaisEstados();
+    $('#cmbEstado').change(getAnimaisCidades);
+
 });
 
 
@@ -19,19 +21,50 @@ function setCarouselPropagandas() {
     setTimeout(setCarouselPropagandas, 5000);
 }
 
-function getEstados() {
+function getAnimaisEstados() {
 
     $.ajax({
-        url: "/Home/GetAnimaisPorEstado",
+        url: "/Home/GetAnimaisEstados",
         type: 'POST',
         success: function (data) {
             if (data.success) {
                 $.each(data.estados, function (index, estado) {
-                    $('#cmbEstado').append('<option value="' + estado.uf + '" >' + estado.NomeEstado + ' (' + estado.QtdeAnimaisEstado + ') </option>');
+                    $('#cmbEstado').append('<option value="' + estado.EstadoID + '" >' + estado.NomeEstado + ' (' + estado.QtdeAnimaisEstado + ') </option>');
                 });
             }
         }
 
     })
+
+}
+
+function getAnimaisCidades() {
+
+    let estadoID = $('#cmbEstado').val();
+
+    if (estadoID != '0') {
+
+        $.ajax({
+            url: "/Home/GetAnimaisCidades",
+            data: { estadoID },
+            type: 'POST',           
+            success: function (data) {
+                if (data.success)
+                {
+                    $('#cmbCidades').html('<option value="">Todas As Cidades</option>');
+                    $.each(data.cidades, function (index, cidade) {
+                        $('#cmbCidades').append('<option value="' + cidade.CidadeID + '" >' + cidade.NomeCidade + ' (' + cidade.QtdeAnimaisCidade + ') </option>');
+                    });
+                }
+            }
+
+        });
+    }
+    else
+    {
+        $('#cmbCidades').html('<option value="">Todas As Cidades</option>');
+    }
+
+
 
 }

@@ -125,6 +125,9 @@
           <Parameter Name="TotalRecord" Type="int" Mode="InOut" />
         </Function>
         <Function Name="proc_003_ConsultaAnimaisPorEstado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="proc_004_ConsultaAnimaisCidade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EstadoID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DBAcessDBObjectsStoreContainer">
           <EntitySet Name="Animais" EntityType="Self.Animais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnimaisCategoria" EntityType="Self.AnimaisCategoria" Schema="dbo" store:Type="Tables" />
@@ -190,7 +193,10 @@
             <Parameter Name="Limit" Mode="In" Type="Int32" />
             <Parameter Name="TotalRecord" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="proc_003_ConsultaAnimaisPorEstado" ReturnType="Collection(DBAcess.DBObjects.vwAnimalEstadoList)" />
+          <FunctionImport Name="proc_003_ConsultaAnimaisPorEstado" ReturnType="Collection(DBAcess.DBObjects.vwAnimalEstados)" />
+          <FunctionImport Name="proc_004_ConsultaAnimaisCidade" ReturnType="Collection(DBAcess.DBObjects.vwAnimalCidades)">
+            <Parameter Name="EstadoID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Animai">
           <Key>
@@ -330,11 +336,16 @@
           <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
           <Property Type="Int64" Name="RowNumber" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="vwAnimalEstadoList">
+        <ComplexType Name="vwAnimalEstados">
           <Property Type="Int32" Name="EstadoID" Nullable="false" />
           <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
           <Property Type="String" Name="NomeEstado" Nullable="true" MaxLength="75" />
           <Property Type="Int32" Name="QtdeAnimaisEstado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vwAnimalCidades">
+          <Property Type="Int32" Name="CidadeID" Nullable="false" />
+          <Property Type="String" Name="NomeCidade" Nullable="true" MaxLength="120" />
+          <Property Type="Int32" Name="QtdeAnimaisCidade" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -463,11 +474,20 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="proc_003_ConsultaAnimaisPorEstado" FunctionName="DBAcess.DBObjects.Store.proc_003_ConsultaAnimaisPorEstado">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalEstadoList">
+              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalEstados">
                 <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
                 <ScalarProperty Name="UF" ColumnName="UF" />
                 <ScalarProperty Name="NomeEstado" ColumnName="NomeEstado" />
                 <ScalarProperty Name="QtdeAnimaisEstado" ColumnName="QtdeAnimaisEstado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_004_ConsultaAnimaisCidade" FunctionName="DBAcess.DBObjects.Store.proc_004_ConsultaAnimaisCidade">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalCidades">
+                <ScalarProperty Name="CidadeID" ColumnName="CidadeID" />
+                <ScalarProperty Name="NomeCidade" ColumnName="NomeCidade" />
+                <ScalarProperty Name="QtdeAnimaisCidade" ColumnName="QtdeAnimaisCidade" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

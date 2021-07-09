@@ -11,7 +11,7 @@ namespace SOSPets.DBAcess
 {
     using System;
     
-    public partial class vwAnimalEstadoList
+    public partial class vwAnimalEstados
     {
         public int EstadoID { get; set; }
         public string UF { get; set; }

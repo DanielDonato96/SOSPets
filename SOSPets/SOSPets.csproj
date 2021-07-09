@@ -167,10 +167,13 @@
     <Compile Include="DBAcess\Usuario.cs">
       <DependentUpon>DBSOSPets.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBAcess\vwAnimalCidades.cs">
+      <DependentUpon>DBSOSPets.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBAcess\vwAnimalDetail.cs">
       <DependentUpon>DBSOSPets.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBAcess\vwAnimalEstadoList.cs">
+    <Compile Include="DBAcess\vwAnimalEstados.cs">
       <DependentUpon>DBSOSPets.tt</DependentUpon>
     </Compile>
     <Compile Include="DBAcess\vwAnimalList.cs">

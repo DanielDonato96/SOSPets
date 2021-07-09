@@ -313,11 +313,11 @@ namespace SOSPets.Controllers
             return Json(new { success });
         }
 
-        public JsonResult GetAnimaisPorEstado()
+        public JsonResult GetAnimaisEstados()
         {
             try
             {
-                List<vwAnimalEstadoList> animaisEstados = new List<vwAnimalEstadoList>();
+                List<vwAnimalEstados> animaisEstados = new List<vwAnimalEstados>();
                 using (SOSPETSEntities db = new SOSPETSEntities())
                 {
                     animaisEstados = db.proc_003_ConsultaAnimaisPorEstado().ToList();
@@ -327,6 +327,23 @@ namespace SOSPets.Controllers
             catch(Exception ex)
             {
                 return Json(new {success = false, message = ex.Message });
+            }
+        }
+
+        public JsonResult GetAnimaisCidades(int estadoID)
+        {
+            try
+            {
+                List<vwAnimalCidades> animaisCidades = new List<vwAnimalCidades>();
+                using (SOSPETSEntities db = new SOSPETSEntities())
+                {
+                    animaisCidades = db.proc_004_ConsultaAnimaisCidade(estadoID).ToList();
+                }
+                return Json(new { success = true, cidades = animaisCidades });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
             }
         }
 

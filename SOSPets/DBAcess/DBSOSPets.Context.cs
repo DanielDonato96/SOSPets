@@ -73,9 +73,18 @@ namespace SOSPets.DBAcess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalList>("proc_002_GetAnimalList", estadoIDParameter, cidadeIDParameter, sortParameter, dirParameter, startParameter, limitParameter, totalRecord);
         }
     
-        public virtual ObjectResult<vwAnimalEstadoList> proc_003_ConsultaAnimaisPorEstado()
+        public virtual ObjectResult<vwAnimalEstados> proc_003_ConsultaAnimaisPorEstado()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalEstadoList>("proc_003_ConsultaAnimaisPorEstado");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalEstados>("proc_003_ConsultaAnimaisPorEstado");
+        }
+    
+        public virtual ObjectResult<vwAnimalCidades> proc_004_ConsultaAnimaisCidade(Nullable<int> estadoID)
+        {
+            var estadoIDParameter = estadoID.HasValue ?
+                new ObjectParameter("EstadoID", estadoID) :
+                new ObjectParameter("EstadoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalCidades>("proc_004_ConsultaAnimaisCidade", estadoIDParameter);
         }
     }
 }
