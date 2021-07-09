@@ -42,6 +42,8 @@ namespace SOSPets.Controllers
                     return Redirect("/");
 
                 anuncioAnimal.animal = db.proc_001_GetAnimalDetail(animal.AnimalID).FirstOrDefault();
+                if (string.IsNullOrEmpty(anuncioAnimal.animal.FotoUrl))
+                    anuncioAnimal.animal.FotoUrl = "semImagem.png";
                 ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
             }
             return View(anuncioAnimal);

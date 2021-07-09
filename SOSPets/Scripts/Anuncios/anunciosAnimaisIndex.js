@@ -29,32 +29,14 @@ var _xhr;
 
 var loadListAnimais = function (start, limit, setPag) {
 
-    //var buscaImovel = false;
-    var estadoID = 0;
-    var cidadeID = 0;
-    //var segmento = '';
-    //var bairro = '';
+    var estadoID = getUrlParameter('estadoID');
+    var cidadeID = getUrlParameter('cidadeID');
 
-    //var url = $(location).attr('href');
-    //var imovelParamsIndex = url.indexOf('imoveis/');
-    //if (imovelParamsIndex > -1) {
-    //    buscaImovel = true;
-    //    var imovelParams = url.substring(imovelParamsIndex, (url.length - 1));
-    //    var paramsArray = imovelParams.split('/');
-
-    //    estado = paramsArray[1];
-    //    cidade = paramsArray[2];
-    //    bairro = paramsArray[3];
-    //    segmento = paramsArray[4];
+    //try {
+    //    window.history.pushState({ url: "" + $(this).attr('href') + "" }, $(this).attr('title'), urlpart);
+    //} catch (e) {
+    //    console.log(e);
     //}
-
-    //var urlpart = "?pagina=" + Math.ceil(start / limit + 1);
-
-    try {
-        window.history.pushState({ url: "" + $(this).attr('href') + "" }, $(this).attr('title'), urlpart);
-    } catch (e) {
-        console.log(e);
-    }
 
 
     if (_xhr && _xhr.readyState != 4) _xhr.abort();
@@ -103,4 +85,20 @@ var getMessageLoad = function () {
         _loaded = true;
         return 'Pesquisando Animais...';
     }
+};
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
 };
