@@ -15,7 +15,40 @@ namespace SOSPets.Controllers
 {
     public class AnunciosController : Controller
     {
-        //#region Action Result
+        #region Action Result
+
+        public ActionResult AnunciosAnimaisIndex(int pagina = 1, int estadoID = 0, int cidadeID = 0)
+        {
+            using (SOSPETSEntities db = new SOSPETSEntities())
+            {
+                if (estadoID == 0) ViewBag.Estado = null;
+                else ViewBag.Estado = db.estado.Where(e => e.id == estadoID).FirstOrDefault();
+
+                if (cidadeID == 0) ViewBag.Cidade = null;
+                else ViewBag.Cidade = db.cidade.Where(c => c.id == cidadeID).FirstOrDefault();
+
+                ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
+            }
+            return View();
+        }
+
+        //[OutputCache(Duration = 1800, VaryByParam = "slug")]
+        public ActionResult AnuncioAnimal(string slug)
+        {
+            AnuncioAnimal anuncioAnimal = new AnuncioAnimal();
+            using (SOSPETSEntities db = new SOSPETSEntities())
+            {
+                var animal = db.Animais.Where(a => !a.excluido && a.FriendlyUrl == slug).FirstOrDefault();
+                if (animal == null)
+                    return Redirect("/");
+
+                anuncioAnimal.animal = db.proc_001_GetAnimalDetail(animal.AnimalID).FirstOrDefault();
+                ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
+            }
+            return View(anuncioAnimal);
+        }
+
+        #endregion
         //public ActionResult Index()
         //{
         //    using(SOSPETSEntities db = new SOSPETSEntities())
@@ -358,21 +391,7 @@ namespace SOSPets.Controllers
 
         #region Void
 
-        //[OutputCache(Duration = 1800, VaryByParam = "slug")]
-        public ActionResult AnuncioAnimal(string slug)
-        {
-            AnuncioAnimal anuncioAnimal = new AnuncioAnimal();
-            using (SOSPETSEntities db = new SOSPETSEntities())
-            {
-                var animal = db.Animais.Where(a => !a.excluido && a.FriendlyUrl == slug).FirstOrDefault();
-                if (animal == null)
-                    return Redirect("/");
 
-                anuncioAnimal.animal = db.proc_001_GetAnimalDetail(animal.AnimalID).FirstOrDefault();
-                ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
-            }
-            return View(anuncioAnimal);
-        }
 
         public void DeletarAnimalFoto(string fotoUrl)
         {

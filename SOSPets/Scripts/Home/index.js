@@ -6,6 +6,10 @@ $(function () {
     getAnimaisEstados();
     $('#cmbEstado').change(getAnimaisCidades);
 
+    $('#btnPesquisaAnimal').click(function () {
+        searchAnimais();
+    });
+
 });
 
 
@@ -51,7 +55,7 @@ function getAnimaisCidades() {
             success: function (data) {
                 if (data.success)
                 {
-                    $('#cmbCidades').html('<option value="">Todas As Cidades</option>');
+                    $('#cmbCidades').html('<option value="0">Todas As Cidades</option>');
                     $.each(data.cidades, function (index, cidade) {
                         $('#cmbCidades').append('<option value="' + cidade.CidadeID + '" >' + cidade.NomeCidade + ' (' + cidade.QtdeAnimaisCidade + ') </option>');
                     });
@@ -62,9 +66,24 @@ function getAnimaisCidades() {
     }
     else
     {
-        $('#cmbCidades').html('<option value="">Todas As Cidades</option>');
+        $('#cmbCidades').html('<option value="0">Todas As Cidades</option>');
     }
 
+}
 
+function searchAnimais() {
+
+    let estadoID = $('#cmbEstado').val();
+    let cidadeID = $('#cmbCidades').val();
+
+    let searchUrl = '/Anuncios/AnunciosAnimaisIndex?pagina=1';
+    if (estadoID != '0')
+    {
+        searchUrl += '&estadoID=' + estadoID;
+        if (cidadeID != '0')
+            searchUrl += '&cidadeID=' + cidadeID;
+    }
+
+    window.location.href = searchUrl;
 
 }

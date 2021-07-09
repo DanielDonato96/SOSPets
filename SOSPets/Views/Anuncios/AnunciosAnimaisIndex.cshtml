@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Pesquisa de Animais | SOSPETS";
+}
+
+<ol class="breadcrumb" style="margin-top:15px;">
+    <li><a href="/">SOSPETS</a></li>
+    @if (ViewBag.Estado == null)
+    {
+        <li>Todos os Estados</li>
+    }
+    else
+    {
+        <li><a href="/Anuncios/AnunciosAnimaisIndex?pagina=1&estadoID=@ViewBag.Estado.id"> @ViewBag.Estado.nome</a></li>
+        if (ViewBag.Cidade == null)
+        {
+            <li> Todas as Cidades</li>
+        }
+        else
+        {
+            <li> @ViewBag.Cidade.nome</li>
+        }
+    }
+
+</ol>
+
+<center><h4>Veja abaixo os resultados:</h4></center>
