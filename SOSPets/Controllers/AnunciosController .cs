@@ -366,7 +366,7 @@ namespace SOSPets.Controllers
             {
                 var animal = db.Animais.Where(a => !a.excluido && a.FriendlyUrl == slug).FirstOrDefault();
                 if (animal == null)
-                    RedirectPermanent("/");
+                    return Redirect("/");
 
                 anuncioAnimal.animal = db.proc_001_GetAnimalDetail(animal.AnimalID).FirstOrDefault();
                 ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";

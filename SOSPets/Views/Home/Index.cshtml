@@ -2,9 +2,42 @@
     ViewBag.Title = "Home Page";
 }
 
+
+    <link rel="stylesheet" href="~/Content/CSS/Home/index.css">
+
+
 <div class="jumbotron">
-    <p class="lead">Bem vindo ao SOSPETS</p>
-    @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+    <div class="row container-pesquisa-animal">
+
+        <div class="col-md-12">
+            <center><h4>Pesquisa de Animais por Estado/Cidade</h4></center>
+        </div>
+
+
+        <div class="btn-group btn-search" role="group" style="width: 100%">
+
+            <div class="col-md-4">
+                <select id="cmbEstado" style="width: 100%">
+                    <option value="0">Todos Os Estados</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <select id="cmbCidades" style="width: 100%">
+                    <option value="">Todas As Cidades</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <button id="btnPesquisaAnimal" type="button" style="width: 93%">
+                    Pesquisar
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <div id="carousel-propagandas">

@@ -115,6 +115,16 @@
         <Function Name="proc_001_GetAnimalDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AnimalID" Type="int" Mode="In" />
         </Function>
+        <Function Name="proc_002_GetAnimalList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EstadoID" Type="int" Mode="In" />
+          <Parameter Name="CidadeID" Type="int" Mode="In" />
+          <Parameter Name="Sort" Type="varchar" Mode="In" />
+          <Parameter Name="Dir" Type="varchar" Mode="In" />
+          <Parameter Name="Start" Type="int" Mode="In" />
+          <Parameter Name="Limit" Type="int" Mode="In" />
+          <Parameter Name="TotalRecord" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="proc_003_ConsultaAnimaisPorEstado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBAcessDBObjectsStoreContainer">
           <EntitySet Name="Animais" EntityType="Self.Animais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnimaisCategoria" EntityType="Self.AnimaisCategoria" Schema="dbo" store:Type="Tables" />
@@ -171,6 +181,16 @@
           <FunctionImport Name="proc_001_GetAnimalDetail" ReturnType="Collection(DBAcess.DBObjects.vwAnimalDetail)">
           <Parameter Name="AnimalID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="proc_002_GetAnimalList" ReturnType="Collection(DBAcess.DBObjects.vwAnimalList)">
+            <Parameter Name="EstadoID" Mode="In" Type="Int32" />
+            <Parameter Name="CidadeID" Mode="In" Type="Int32" />
+            <Parameter Name="Sort" Mode="In" Type="String" />
+            <Parameter Name="Dir" Mode="In" Type="String" />
+            <Parameter Name="Start" Mode="In" Type="Int32" />
+            <Parameter Name="Limit" Mode="In" Type="Int32" />
+            <Parameter Name="TotalRecord" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_003_ConsultaAnimaisPorEstado" ReturnType="Collection(DBAcess.DBObjects.vwAnimalEstadoList)" />
         </EntityContainer>
         <EntityType Name="Animai">
           <Key>
@@ -293,6 +313,29 @@
           <Property Type="String" Name="Bairro" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
         </ComplexType>
+        <ComplexType Name="vwAnimalList">
+          <Property Type="Int32" Name="AnimalID" Nullable="false" />
+          <Property Type="String" Name="FotoUrl" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="Whatsapp" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NomeAnimal" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="FriendlyUrl" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="DtDesaparecimento" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="Bairro" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CategoriaAnimal" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="SituacaoAnimal" Nullable="false" MaxLength="90" />
+          <Property Type="String" Name="StatusAnimal" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Cidade" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="75" />
+          <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vwAnimalEstadoList">
+          <Property Type="Int32" Name="EstadoID" Nullable="false" />
+          <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="NomeEstado" Nullable="true" MaxLength="75" />
+          <Property Type="Int32" Name="QtdeAnimaisEstado" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -394,6 +437,37 @@
                 <ScalarProperty Name="DtDesaparecimento" ColumnName="DtDesaparecimento" />
                 <ScalarProperty Name="Bairro" ColumnName="Bairro" />
                 <ScalarProperty Name="UF" ColumnName="UF" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_002_GetAnimalList" FunctionName="DBAcess.DBObjects.Store.proc_002_GetAnimalList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalList">
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="FotoUrl" ColumnName="FotoUrl" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="NomeAnimal" ColumnName="NomeAnimal" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
+                <ScalarProperty Name="DtDesaparecimento" ColumnName="DtDesaparecimento" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="CategoriaAnimal" ColumnName="CategoriaAnimal" />
+                <ScalarProperty Name="SituacaoAnimal" ColumnName="SituacaoAnimal" />
+                <ScalarProperty Name="StatusAnimal" ColumnName="StatusAnimal" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_003_ConsultaAnimaisPorEstado" FunctionName="DBAcess.DBObjects.Store.proc_003_ConsultaAnimaisPorEstado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalEstadoList">
+                <ScalarProperty Name="EstadoID" ColumnName="EstadoID" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+                <ScalarProperty Name="NomeEstado" ColumnName="NomeEstado" />
+                <ScalarProperty Name="QtdeAnimaisEstado" ColumnName="QtdeAnimaisEstado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

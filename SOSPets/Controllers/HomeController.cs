@@ -313,6 +313,23 @@ namespace SOSPets.Controllers
             return Json(new { success });
         }
 
+        public JsonResult GetAnimaisPorEstado()
+        {
+            try
+            {
+                List<vwAnimalEstadoList> animaisEstados = new List<vwAnimalEstadoList>();
+                using (SOSPETSEntities db = new SOSPETSEntities())
+                {
+                    animaisEstados = db.proc_003_ConsultaAnimaisPorEstado().ToList();
+                }
+                return Json(new { success = true, estados = animaisEstados });
+            }
+            catch(Exception ex)
+            {
+                return Json(new {success = false, message = ex.Message });
+            }
+        }
+
         #endregion
 
         #region string

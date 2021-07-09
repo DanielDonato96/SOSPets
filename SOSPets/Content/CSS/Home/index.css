@@ -1,0 +1,26 @@
+﻿.jumbotron {
+    background-image: url('../../Images/Layout/logoSOSPETS.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.container-pesquisa-animal {
+    background: rgba(255,255,255,.75);
+}
+
+    .container-pesquisa-animal select {
+        margin: 15px;
+    }
+
+    .container-pesquisa-animal button {
+        margin: 15px;
+        background-color: #007bff;
+        font-family: verdana;
+        color: white;
+    }
+
+.title-label {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+}
