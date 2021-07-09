@@ -182,6 +182,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Provider\NonOrderingBundleOrderer .cs" />
     <Compile Include="Models\AnuncioAnimal.cs" />
     <Compile Include="Models\AnimalInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,6 +193,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\Anuncios\anunciosAnimaisIndex.css" />
     <Content Include="Content\CSS\Home\index.css" />
     <Content Include="Content\CSS\Home\animaisLista.css" />
     <Content Include="Content\CSS\Home\animaisCategoria.css" />
@@ -199,6 +201,7 @@
     <Content Include="Content\Images\Animais\bm7B7cly.jpg" />
     <Content Include="Content\Images\Animais\NnvFUL8q.jpg" />
     <Content Include="Content\Images\Animais\NS7b460a.jpg" />
+    <Content Include="Content\Images\Animais\semImagem.png" />
     <Content Include="Content\Images\Layout\logoSOSPETS.png" />
     <Content Include="Content\Images\Propagandas\propaganda_01.jpeg" />
     <Content Include="Content\Images\Propagandas\propaganda_02.jpeg" />
@@ -216,6 +219,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Anuncios\anunciosAnimaisIndex.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="DBAcess\DBSOSPets.edmx">
@@ -261,6 +265,7 @@
     <Content Include="Views\Home\AnimalDetalhe.cshtml" />
     <Content Include="Views\Anuncios\AnuncioAnimal.cshtml" />
     <Content Include="Views\Anuncios\AnunciosAnimaisIndex.cshtml" />
+    <Content Include="Views\Anuncios\AnimalList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

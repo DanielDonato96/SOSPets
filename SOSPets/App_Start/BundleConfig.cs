@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Optimization;
+using Lance.WebSite.New.Helpers.Provider;
 
 namespace SOSPets
 {
@@ -8,6 +9,21 @@ namespace SOSPets
         // Para obter mais informações sobre o agrupamento, visite https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //var layout = new ScriptBundle("~/bundles/site").Include(
+            //                    "~/Scripts/jquery-{version}.js",
+            //                    "~/Scripts/jquery.validate.js",
+            //                    "~/JS/Shared/ValidateMessage.js",
+            //                    //"~/JS/Plugin/OwlCarousel2/dist/owl.carousel.js",
+            //                    "~/Content/lib/slick-carousel/slick.min.js",
+            //                    "~/Scripts/bootstrap.js",
+            //                    "~/Scripts/bootbox.js",
+            //                    "~/JS/Shared/Common.js",
+            //                    "~/JS/Shared/Newsletter.js");
+
+
+            //layout.Orderer = new NonOrderingBundleOrderer();
+            //bundles.Add(layout);
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 

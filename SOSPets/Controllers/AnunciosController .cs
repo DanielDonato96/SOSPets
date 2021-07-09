@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,7 @@ namespace SOSPets.Controllers
                 else ViewBag.Estado = db.estado.Where(e => e.id == estadoID).FirstOrDefault();
 
                 if (cidadeID == 0) ViewBag.Cidade = null;
-                else ViewBag.Cidade = db.cidade.Where(c => c.id == cidadeID).FirstOrDefault();
-
-                ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
+                else ViewBag.Cidade = db.cidade.Where(c => c.id == cidadeID).FirstOrDefault();              
             }
             return View();
         }
@@ -46,6 +45,33 @@ namespace SOSPets.Controllers
                 ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
             }
             return View(anuncioAnimal);
+        }
+
+        public PartialViewResult AnunciosAnimaisListSearch(int start, int limit, int estadoID, int cidadeID)
+        {
+            ObjectParameter total = new ObjectParameter("TotalRecord", typeof(int));
+            using (SOSPETSEntities db = new SOSPETSEntities())
+            {
+                List<vwAnimalList> listaAnimais;
+
+                var i = RouteData;
+                    listaAnimais = db.proc_002_GetAnimalList(estadoID,
+                                                                cidadeID,
+                                                                "DtDesaparecimento",
+                                                                "DESC",
+                                                                start,
+                                                                limit,
+                                                                total).ToList();
+
+                ViewBag.ListAnimal = listaAnimais;
+                ViewBag.TotalRecord = total.Value;
+                ViewBag.IndexPage = start;
+                ViewBag.LimitRecord = limit;
+            }
+
+            ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
+
+            return PartialView("AnimalList");
         }
 
         #endregion

@@ -1,0 +1,17 @@
+﻿.photo-animal {
+    text-align: center;
+    display: block;
+}
+
+.photo-animal img {
+    width: 16vw;
+    height: 20vh;
+}
+
+@media(max-width: 660px){
+    .photo-animal img {
+        width: 50vw;
+        height: 30vh;
+    }
+}
+ 
