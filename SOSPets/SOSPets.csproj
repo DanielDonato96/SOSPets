@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnunciosController .cs" />
+    <Compile Include="Controllers\StaticController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DBAcess\Animai.cs">
       <DependentUpon>DBSOSPets.tt</DependentUpon>
@@ -266,9 +267,13 @@
     <Content Include="Views\Anuncios\AnuncioAnimal.cshtml" />
     <Content Include="Views\Anuncios\AnunciosAnimaisIndex.cshtml" />
     <Content Include="Views\Anuncios\AnimalList.cshtml" />
+    <Content Include="Views\Static\Faq.cshtml" />
+    <Content Include="Views\Static\Contact.cshtml" />
+    <Content Include="Views\Static\AboutUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\Constraints\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
