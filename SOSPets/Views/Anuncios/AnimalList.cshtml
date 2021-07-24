@@ -12,7 +12,7 @@
 
     @foreach (var itemAnimal in (List<vwAnimalList>)ViewBag.ListAnimal)
     {
-        var url_lote = string.Format("/Anuncios/AnuncioAnimal?slug={0}", itemAnimal.FriendlyUrl);
+        var url_animal = string.Format("/Anuncios/AnuncioAnimal?slug={0}", itemAnimal.FriendlyUrl);
         //var url_external = string.Empty;
         //Caso seja Lote de outro leiloeiro envia para o link do site do imovel
 
@@ -20,7 +20,7 @@
 
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <div class="thumbnail thumbnail-vitrine-lot item-bid pt">
-                <a href="@url_lote" class="item-photo">
+                <a href="@url_animal" class="item-photo">
                     <div class="header-card">
                         <span><i class="fa fa-calendar" aria-hidden="true"></i> @Convert.ToDateTime(itemAnimal.DtDesaparecimento).ToString("ddd, dd/MM/yyyy à\\s HH\\:mm")</span>
                     </div>
@@ -42,19 +42,18 @@
                     <div>                      
                         <span>@itemAnimal.NomeAnimal (@itemAnimal.CategoriaAnimal)</span>
                     </div>
-                    <div class="lot-price">
+                    <div class="">
 
                             <div class="row price-leiloes" style="margin-top:20px!important;">
                                 <div class="col-xl-12">
-                                    <span>
-                                        Dados:
-                                    </span>
-                                    <span class="price-line">@itemAnimal.Descricao</span>
+                                    <center>
+                                        <span class="animal-dono-contato">Contato Dono: @itemAnimal.Whatsapp</span>
+                                    </center>
                                 </div>
                             </div>
                         
                     </div>
-                    <a href="@url_lote" class="label-md @itemAnimal.StatusAnimal">
+                    <a href="@url_animal" class="label-md @itemAnimal.StatusAnimal">
                         @itemAnimal.SituacaoAnimal
                     </a>
                 </div>
