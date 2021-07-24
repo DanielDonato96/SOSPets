@@ -20,6 +20,7 @@ namespace SOSPets.Controllers
 
         public ActionResult AnunciosAnimaisIndex(int pagina = 1, int estadoID = 0, int cidadeID = 0)
         {
+            ViewBag.Page = pagina;
             using (SOSPETSEntities db = new SOSPETSEntities())
             {
                 if (estadoID == 0) ViewBag.Estado = null;

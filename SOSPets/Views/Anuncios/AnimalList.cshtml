@@ -4,45 +4,149 @@
 @{
     var ci = ViewBag.cultureInfo;
 }
-<div class="row" id="leilao-lista-lote" index="@ViewBag.IndexPage" total="@ViewBag.TotalRecord" limit="@ViewBag.LimitRecord">
-    @if (((List<vwAnimalList>)ViewBag.ListAnimal).Count == 0)
+
+<head>
+    <style>
+
+        .animal-desaparecimento-info {
+            color: red;
+        }
+
+        .label {
+        }
+
+        .big-label {
+            font-size: 15px;
+            padding: 10px 15px;
+            display: block;
+            width: 100%;
+        }
+
+        .status-grey {
+            color: #fff;
+            background-color: lightgrey;
+            border-color: #ccc;
+        }
+
+        .status-red {
+            color: #fff;
+            background-color: red;
+            border-color: #ccc;
+        }
+
+        .status-green {
+            color: #fff;
+            background-color: green;
+            border-color: #ccc;
+        }
+
+        .pagination {
+            display: inline-block;
+        }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+                .pagination a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                    border-radius: 5px;
+                }
+
+                .pagination a:hover:not(.active) {
+                    background-color: #ddd;
+                    border-radius: 5px;
+                }
+    </style>
+</head>
+
+<body>
+
+    @if (((List<vwAnimalList>)ViewBag.ListAnimal).Count > 0)
     {
-        <div>Nenhum Animal encontrado</div>
-    }
+        var total = ViewBag.TotalRecord;
+        var limit = ViewBag.LimitRecord;
+        var index = (ViewBag.IndexPage / limit);
 
-    @foreach (var itemAnimal in (List<vwAnimalList>)ViewBag.ListAnimal)
-    {
-        var url_animal = string.Format("/Anuncios/AnuncioAnimal?slug={0}", itemAnimal.FriendlyUrl);
-        //var url_external = string.Empty;
-        //Caso seja Lote de outro leiloeiro envia para o link do site do imovel
+        <center>
+            <div class="pagination">
 
-        //if (!string.IsNullOrEmpty(itemLote.Url)) { url_lote = "javascript:"; }
+                @if (total <= limit)
+                {
+                    <a href="#">&laquo;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">&raquo;</a>
+                }
+                else
+                {
+                    <a href="#" class="page-arrow-navegator" data-navegator="previous">&laquo;</a>
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="thumbnail thumbnail-vitrine-lot item-bid pt">
-                <a href="@url_animal" class="item-photo">
-                    <div class="header-card">
-                        <span><i class="fa fa-calendar" aria-hidden="true"></i> @Convert.ToDateTime(itemAnimal.DtDesaparecimento).ToString("ddd, dd/MM/yyyy à\\s HH\\:mm")</span>
-                    </div>
-                    <div class="photo-animal">
-                        @if (string.IsNullOrEmpty(itemAnimal.FotoUrl))
+                    for (int i = 1; (i * limit) < (total + limit); i++)
+                    {
+                        if (i == (index + 1))
                         {
-                            <img src="@ViewBag.FotoAnimalPath/semImagem.png" alt="@itemAnimal.NomeAnimal" />
+                            <a href="#" class="active active-page" current-page="@i">@i</a>
                         }
                         else
                         {
-                            <img src="@ViewBag.FotoAnimalPath/@itemAnimal.FotoUrl" alt="@itemAnimal.NomeAnimal" />
+                            <a href="#" class="page-navegator" data-page="@i">@i</a>
                         }
-                    </div>
-                    <div class="photo-text">
-                        <span>@itemAnimal.Descricao</span>
-                    </div>
-                </a>
-                <div class="lot-info">
-                    <div>                      
-                        <span>@itemAnimal.NomeAnimal (@itemAnimal.CategoriaAnimal)</span>
-                    </div>
-                    <div class="">
+                    }
+
+                    <a href="#" class="page-arrow-navegator" data-navegator="next">&raquo;</a>
+
+                }
+            </div>
+        </center>
+    }
+
+
+
+    <div class="row" id="leilao-lista-lote" index="@ViewBag.IndexPage" total="@ViewBag.TotalRecord" limit="@ViewBag.LimitRecord">
+        @if (((List<vwAnimalList>)ViewBag.ListAnimal).Count == 0)
+        {
+            <div>Nenhum Animal encontrado</div>
+        }
+
+        @foreach (var itemAnimal in (List<vwAnimalList>)ViewBag.ListAnimal)
+        {
+            var url_animal = string.Format("/Anuncios/AnuncioAnimal?slug={0}", itemAnimal.FriendlyUrl);
+            //var url_external = string.Empty;
+            //Caso seja Lote de outro leiloeiro envia para o link do site do imovel
+
+            //if (!string.IsNullOrEmpty(itemLote.Url)) { url_lote = "javascript:"; }
+
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="thumbnail thumbnail-vitrine-lot item-bid pt">
+                    <a href="@url_animal" class="item-photo" style="text-decoration:none;">
+                        <div class="header-card">
+                            <center>
+                                <span class="animal-desaparecimento-info"><i class="fa fa-calendar" aria-hidden="true"></i>Desaparecido desde: @Convert.ToDateTime(itemAnimal.DtDesaparecimento).ToString("dd/MM/yyyy à\\s HH\\:mm")</span>
+                            </center>
+                        </div>
+                        <div class="photo-animal">
+                            @if (string.IsNullOrEmpty(itemAnimal.FotoUrl))
+                            {
+                                <img src="@ViewBag.FotoAnimalPath/semImagem.png" alt="@itemAnimal.NomeAnimal" />
+                            }
+                            else
+                            {
+                                <img src="@ViewBag.FotoAnimalPath/@itemAnimal.FotoUrl" alt="@itemAnimal.NomeAnimal" />
+                            }
+                        </div>
+                        <div class="photo-text">
+                            <span>@itemAnimal.Descricao</span>
+                        </div>
+                    </a>
+                    <div class="lot-info">
+                        <div>
+                            <span>@itemAnimal.NomeAnimal (@itemAnimal.CategoriaAnimal)</span>
+                        </div>
+                        <div class="">
 
                             <div class="row price-leiloes" style="margin-top:20px!important;">
                                 <div class="col-xl-12">
@@ -51,19 +155,21 @@
                                     </center>
                                 </div>
                             </div>
-                        
+
+                        </div>
+                        <a href="@url_animal" class="label big-label @itemAnimal.StatusAnimal">
+                            @itemAnimal.SituacaoAnimal
+                        </a>
                     </div>
-                    <a href="@url_animal" class="label-md @itemAnimal.StatusAnimal">
-                        @itemAnimal.SituacaoAnimal
-                    </a>
+
                 </div>
 
             </div>
 
-        </div>
 
+        }
+    </div>
+    <br />
+    <br />
 
-    }
-</div>
-<br />
-<br />
+</body>

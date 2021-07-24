@@ -1,77 +1,78 @@
-﻿var _PageSize = 20;
+﻿var _PageSize = 6;
 
 $(document).ready(function () {
 
     $('.lote-info-nav').clone().insertAfter('#content_list_lote');
 
-    //$('.buttons-top .top-button').click(changeAba);
+    loadListAnimais(1, _PageSize, true);
+
+    $(document).on("click", ".pagination .page-navegator", function () {
+        let page = $(this).attr('data-page');
+
+        if (page != undefined && page > -1) {
+            loadListAnimais(page, _PageSize, true);
+        }
+    });
+
+    $(document).on("click", ".pagination .page-arrow-navegator", function () {
+        let navegationType = $(this).attr('data-navegator');
+        let currentPage = $('.pagination .active-page').attr('current-page');
+        let newPage;
+
+        if (navegationType == 'previous')
+        {
+            newPage = (parseInt(currentPage) - 1)
+        }
+        else
+        {
+            newPage = (parseInt(currentPage) + 1)
+            var biggestNum = 0;
+            $('.pagination .page-navegator').each(function () {
+                var currentNum = parseInt($(this).attr('data-page'));
+                if (currentNum > biggestNum) {
+                    biggestNum = currentNum;
+                }
+            });
+            if (newPage > biggestNum)
+                return false;
+        }
+        
+        if (newPage > 0) {
+            loadListAnimais(newPage, _PageSize, true);
+        }
 
 
-    //pega valor do atributo para paginação            
-    //var pagina = getUrlParameter('pagina');
+    });
 
-    //if (pagina == null) pagina = 1;
-    //else pagina = parseInt(pagina);
-
-    var pagina = 1;
-
-    var start = (pagina - 1) * _PageSize;
-
-    //Carrega abas
-    loadListAnimais(start, _PageSize, true);
-    //getLotesPorCidade();
-    //$('#LoteEstado').change(getLotesPorCidade);
-    //$('#LoteCidade').change(getLotesPorBairro);
 });
 
 
 var _xhr;
 
-var loadListAnimais = function (start, limit, setPag) {
+var loadListAnimais = function (pagina, limit, setPag) {
 
     var estadoID = getUrlParameter('estadoID');
     var cidadeID = getUrlParameter('cidadeID');
 
-    //try {
-    //    window.history.pushState({ url: "" + $(this).attr('href') + "" }, $(this).attr('title'), urlpart);
-    //} catch (e) {
-    //    console.log(e);
-    //}
+    var start = (pagina - 1) * _PageSize;
 
 
     if (_xhr && _xhr.readyState != 4) _xhr.abort();
 
     _xhr = $.ajax({
         url: '/Anuncios/AnunciosAnimaisListSearch', data: {
-            //categoria: $('search#lot').attr('cat'),
-            //subcategoria: $('search#lot').attr('sub'),
-            //term: $('search#lot').attr('term'),
             start: start,
             limit: limit,
-            //listaId: $('search#lot').attr('lista-id'),
-            //slug: _cid = $('search#lot').attr('slug'),
-            //buscaImovel: buscaImovel,
-            //bairro: bairro,
-            //segmento: segmento,
-            estadoID: estadoID,      
-            cidadeID: cidadeID          
+            estadoID: estadoID,
+            cidadeID: cidadeID
         },
         type: 'get',
         beforeSend: function () {
-            //$('#content_list_lote').contents().hide();
-            //$(loaderHtml('loader_lote', getMessageLoad(), 'margin: 45px auto;')).appendTo('#content_list_lote');
-            //$('#loader_lote').fadeIn(500);
+            $('#content_list_lote').contents().hide();
+            $('#content_list_lote').html('<span> Aguarde o processamento </span>');
         },
         success: function (html) {
             $('#content_list_lote').html(html);
-            //$('#loader_lote').fadeOut(500, function () {
-            //    $('#content_list_lote').html(html);
-            //    if (setPag) {
-            //        setPagging();
-            //        $('.lote-info-nav').fadeIn(500);
-            //    }
-            //});
-
         }
     });
 };
