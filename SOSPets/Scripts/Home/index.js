@@ -6,6 +6,7 @@ $(function () {
     getAnimaisEstados();
     $('#cmbEstado').change(getAnimaisCidades);
 
+    //
     $('#btnPesquisaAnimal').click(function () {
         searchAnimais();
     });
