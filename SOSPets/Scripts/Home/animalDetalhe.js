@@ -1,5 +1,6 @@
 ﻿$(function () {
 
+    getCidades(true);
 
     $("#form_cadastro_animal").submit(function (form) {
         event.preventDefault();       
@@ -17,7 +18,7 @@
             {
                 if (data.success)
                 {
-                    console.log(data.message)
+                    showNotificationModal(data.message)
                     $('#img_animal').attr('src', data.FotoUrl);
 
                     if (data.newRecord)
@@ -30,19 +31,51 @@
                     }
                     
                 }
-                else console.log('erro ' + data.message)
+                else showNotificationModal(data.message)
                 
             },
             error: function (data)
             {
-                console.log('Falha no servidor ao tentar salvar o animal, tente novamente mais tarde')
+                showNotificationModal('Falha no servidor ao tentar salvar o animal, tente novamente mais tarde')
                 
             }
         });
 
+    });
+
+    $('#estado').on('change', function () {
+        getCidades();
+    });
+
 });
-    
-});
+
+function getCidades(primeiraChamada = false) {
+
+    $.ajax({
+        type: "POST",
+        url: "/Home/GetCidades/",
+        data: { estadoID: $('#estado').val() },
+        success: function (data) {
+            if (data.success)
+            {
+                $('#cidade').html('');
+                $(data.cidades).each(function (index, cidade) {
+                    $('#cidade').append('<option value="' + cidade.CidadeID + '">' + cidade.Nome + '</option>');
+                });
+
+                if (primeiraChamada == true) {
+                    setCidadeAtual();
+                }
+
+            }
+            else
+            {
+                showNotificationModal('Falha ao recuperar Cidades');
+            }
+        }
+    });
+
+}
 
 function deletarAnimal() {
 
@@ -54,10 +87,10 @@ function deletarAnimal() {
             if (data.success)
             {
                 clearAnimalInputs();
-                console.log('ok')
+                
             }
             else {
-                console.log('Falha na exclusão do registro');
+                showNotificationModal('Falha na exclusão do registro');
             }
         }
     });
@@ -78,3 +111,19 @@ function clearAnimalInputs() {
     $('#btn_delete_animal').hide();
 }
 
+function setCidadeAtual() {
+
+    //Quando o usuário entrar na página de um animal que já existe, a cidade atual é carregada 
+
+    let cidade_atual = parseInt($('#cidade_atual').val());
+
+    if (cidade_atual != undefined) {
+        $('#cidade').val(cidade_atual).change();
+    }
+
+}
+
+function showNotificationModal(message) {
+    $('#notificationText').text(message);
+    $('#notificationAnimalModal').modal('show');
+}

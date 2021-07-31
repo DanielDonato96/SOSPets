@@ -180,6 +180,9 @@
     <Compile Include="DBAcess\vwAnimalList.cs">
       <DependentUpon>DBSOSPets.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBAcess\vwCidades.cs">
+      <DependentUpon>DBSOSPets.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

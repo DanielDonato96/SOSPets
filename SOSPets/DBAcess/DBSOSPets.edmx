@@ -18,7 +18,7 @@
           <Property Name="excluido" Type="bit" Nullable="false" />
           <Property Name="SituacaoAnimalID" Type="int" Nullable="false" />
           <Property Name="CidadeID" Type="int" Nullable="false" />
-          <Property Name="FriendlyUrl" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FriendlyUrl" Type="varchar" MaxLength="500" />
           <Property Name="Descricao" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="Bairro" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -128,6 +128,9 @@
         <Function Name="proc_004_ConsultaAnimaisCidade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EstadoID" Type="int" Mode="In" />
         </Function>
+        <Function Name="proc_005_GetCidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EstadoID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DBAcessDBObjectsStoreContainer">
           <EntitySet Name="Animais" EntityType="Self.Animais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnimaisCategoria" EntityType="Self.AnimaisCategoria" Schema="dbo" store:Type="Tables" />
@@ -195,7 +198,10 @@
           </FunctionImport>
           <FunctionImport Name="proc_003_ConsultaAnimaisPorEstado" ReturnType="Collection(DBAcess.DBObjects.vwAnimalEstados)" />
           <FunctionImport Name="proc_004_ConsultaAnimaisCidade" ReturnType="Collection(DBAcess.DBObjects.vwAnimalCidades)">
-            <Parameter Name="EstadoID" Mode="In" Type="Int32" />
+          <Parameter Name="EstadoID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_005_GetCidades" ReturnType="Collection(DBAcess.DBObjects.vwCidades)">
+          <Parameter Name="EstadoID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Animai">
@@ -212,7 +218,7 @@
           <Property Name="excluido" Type="Boolean" Nullable="false" />
           <Property Name="SituacaoAnimalID" Type="Int32" Nullable="false" />
           <Property Name="CidadeID" Type="Int32" Nullable="false" />
-          <Property Name="FriendlyUrl" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FriendlyUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Descricao" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="cidade" Relationship="DBAcess.DBObjects.FK__Animais__CidadeI__6B24EA82" FromRole="Animai" ToRole="cidade" />
           <NavigationProperty Name="SituacaoAnimal" Relationship="DBAcess.DBObjects.FK__Animais__Situaca__5EBF139D" FromRole="Animai" ToRole="SituacaoAnimal" />
@@ -346,6 +352,10 @@
           <Property Type="Int32" Name="CidadeID" Nullable="false" />
           <Property Type="String" Name="NomeCidade" Nullable="true" MaxLength="120" />
           <Property Type="Int32" Name="QtdeAnimaisCidade" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="vwCidades">
+          <Property Type="Int32" Name="CidadeID" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="true" MaxLength="120" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -488,6 +498,14 @@
                 <ScalarProperty Name="CidadeID" ColumnName="CidadeID" />
                 <ScalarProperty Name="NomeCidade" ColumnName="NomeCidade" />
                 <ScalarProperty Name="QtdeAnimaisCidade" ColumnName="QtdeAnimaisCidade" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_005_GetCidades" FunctionName="DBAcess.DBObjects.Store.proc_005_GetCidades">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwCidades">
+                <ScalarProperty Name="CidadeID" ColumnName="CidadeID" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

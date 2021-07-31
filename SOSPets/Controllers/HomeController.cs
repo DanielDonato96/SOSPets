@@ -10,6 +10,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using SOSPets.DBAcess;
 using SOSPets.Models;
+using SOSPets.Repository;
 
 namespace SOSPets.Controllers
 {
@@ -18,7 +19,7 @@ namespace SOSPets.Controllers
         #region Action Result
         public ActionResult Index()
         {
-            using(SOSPETSEntities db = new SOSPETSEntities())
+            using (SOSPETSEntities db = new SOSPETSEntities())
             {
                 ViewBag.Propagandas = db.Propaganda.Where(p => p.Excluido != true && p.Ativo != false).ToList();
             }
@@ -62,17 +63,17 @@ namespace SOSPets.Controllers
                 int skip = pagina > 1 ? (pagina - 1) * 10 : 0;
 
                 var query = (from A in db.Animais
-                                    join AC in db.AnimaisCategorias on A.AnimalCategoriaID equals AC.AnimalCategoriaID
-                                    select new
-                                    {
-                                        A.AnimalID,
-                                        A.Nome,
-                                        A.DtDesaparecimento,
-                                        A.Whatsapp,
-                                        A.FotoUrl,
-                                        AC.AnimalCategoriaID,
-                                        Especie = AC.Nome
-                                    })
+                             join AC in db.AnimaisCategorias on A.AnimalCategoriaID equals AC.AnimalCategoriaID
+                             select new
+                             {
+                                 A.AnimalID,
+                                 A.Nome,
+                                 A.DtDesaparecimento,
+                                 A.Whatsapp,
+                                 A.FotoUrl,
+                                 AC.AnimalCategoriaID,
+                                 Especie = AC.Nome
+                             })
                                      .OrderByDescending(a => a.DtDesaparecimento)
                                      .Skip(skip)
                                      .Take(10)
@@ -95,7 +96,7 @@ namespace SOSPets.Controllers
 
             List<int> backwardPages = new List<int>();
 
-            for(int i = 1; i < pagina; i++)
+            for (int i = 1; i < pagina; i++)
             {
                 backwardPages.Add(i);
             }
@@ -127,7 +128,12 @@ namespace SOSPets.Controllers
                 if (animalID > 0)
                 {
                     var query = (from A in db.Animais
-                                 join AC in db.AnimaisCategorias on A.AnimalCategoriaID equals AC.AnimalCategoriaID
+                                 join AC in db.AnimaisCategorias
+                                 on A.AnimalCategoriaID equals AC.AnimalCategoriaID
+                                 join C in db.cidade
+                                 on A.CidadeID equals C.id
+                                 join E in db.estado
+                                 on C.uf equals E.id
                                  select new
                                  {
                                      A.AnimalID,
@@ -135,8 +141,13 @@ namespace SOSPets.Controllers
                                      A.DtDesaparecimento,
                                      A.Whatsapp,
                                      A.FotoUrl,
+                                     A.SituacaoAnimalID,
                                      AC.AnimalCategoriaID,
-                                     Especie = AC.Nome
+                                     Especie = AC.Nome,
+                                     CidadeID = A.CidadeID,
+                                     EstadoId = E.id,
+                                     A.Bairro,
+                                     A.Descricao
                                  })
                                          .Where(a => a.AnimalID == animalID)
                                          .FirstOrDefault();
@@ -149,7 +160,12 @@ namespace SOSPets.Controllers
                         animal.FotoUrl = query.FotoUrl;
                         animal.DataDesaparecimento = Convert.ToDateTime(query.DtDesaparecimento);
                         animal.AnimalCategoriaID = query.AnimalCategoriaID;
+                        animal.SituacaoAnimalID = query.SituacaoAnimalID;
                         animal.Especie = query.Especie;
+                        animal.EstadoID = query.EstadoId;
+                        animal.CidadeID = query.CidadeID;
+                        animal.Bairro = query.Bairro;
+                        animal.Descricao = query.Descricao;
                     }
                     else naoEncontrado = true;
                 }
@@ -159,6 +175,9 @@ namespace SOSPets.Controllers
                 ViewBag.NaoEncontrado = naoEncontrado;
 
                 ViewBag.Especies = db.AnimaisCategorias.ToList();
+                ViewBag.Estados = db.estado.Where(e => e.id != 99).ToList();
+
+                ViewBag.SituacaoAnimal = db.SituacaoAnimal.ToList();
 
                 ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
 
@@ -180,7 +199,23 @@ namespace SOSPets.Controllers
                 string whatsapp = values["whatsapp"];
 
                 if (string.IsNullOrEmpty(nome_animal)) throw new Exception("Forneça um nome para o animal");
-                if (string.IsNullOrEmpty(nome_animal)) throw new Exception("Forneça whatsapp para contato");
+                if (string.IsNullOrEmpty(whatsapp)) throw new Exception("Forneça whatsapp para contato");
+
+                string descricao = values["descricao"];
+
+                if (string.IsNullOrEmpty(descricao)) throw new Exception("Forneça uma descrição");
+
+                string sCidadeID = values["cidade"];
+
+                if (string.IsNullOrEmpty(sCidadeID)) throw new Exception("Selecione uma cidade");
+
+                string bairro = values["bairro"];
+
+                if (string.IsNullOrEmpty(bairro)) throw new Exception("Preencha o bairro");
+
+                string sSituacaoAnimalID = values["situacao"];
+
+                if (string.IsNullOrEmpty(sCidadeID)) throw new Exception("Selecione uma situação para o anuncio");
 
                 string newFotoUrl = WebConfigurationManager.AppSettings["LocalHostPath"] + "Content/Images/Animais/";
                 bool newRecord = false;
@@ -202,9 +237,15 @@ namespace SOSPets.Controllers
                         newRecord = true;
                     }
 
-                    animal.Nome = nome_animal;                   
+                    animal.Nome = nome_animal;
                     animal.Whatsapp = whatsapp;
+                    animal.Descricao = descricao;
                     animal.AnimalCategoriaID = Convert.ToInt32(animalCategoriaID);
+
+                    animal.CidadeID = Convert.ToInt32(sCidadeID);
+                    animal.Bairro = bairro;
+
+                    animal.SituacaoAnimalID = Convert.ToInt32(sSituacaoAnimalID);
 
                     #region Salvar Imagem do Animal
                     animal.FotoUrl = UploadFotoAnimal(HttpContext.Request.Files[0]);
@@ -213,17 +254,25 @@ namespace SOSPets.Controllers
 
                     if (newRecord) db.Animais.Add(animal);
                     db.SaveChanges();
+
+                    
                     animalID = animal.AnimalID;
+
+                    if (newRecord)
+                    {
+                        animal.FriendlyUrl = string.Format("{0}-{1}", animalID, nome_animal.ToLower());
+                        db.SaveChanges();
+                    }
                 }
 
                 return Json(new { success = true, message = "Animal salvo com sucesso", FotoUrl = newFotoUrl, newRecord, dataDesaparecimento, animalID });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message});
+                return Json(new { success = false, message = ex.Message });
             }
-            
-            
+
+
         }
 
         public JsonResult SaveAnimaisCategorias(int id, string nome)
@@ -274,7 +323,7 @@ namespace SOSPets.Controllers
 
                     if (animal != null)
                     {
-                        db.Animais.Remove(animal);
+                        animal.excluido = true;
                         db.SaveChanges();
                     }
                 }
@@ -324,9 +373,9 @@ namespace SOSPets.Controllers
                 }
                 return Json(new { success = true, estados = animaisEstados });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json(new {success = false, message = ex.Message });
+                return Json(new { success = false, message = ex.Message });
             }
         }
 
@@ -345,6 +394,27 @@ namespace SOSPets.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+        }
+
+        public JsonResult GetCidades(int estadoID)
+        {
+            List<vwCidades> cidades = new List<vwCidades>();
+            string message = string.Empty;
+            bool success = true;
+            try
+            {
+                using (SOSPETSEntities db = new SOSPETSEntities())
+                {
+                    cidades = db.proc_005_GetCidades(estadoID).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+            }
+            return Json(new { success = success, cidades, message = message });
         }
 
         #endregion
@@ -400,7 +470,7 @@ namespace SOSPets.Controllers
             {
                 if (System.IO.File.Exists(fotoAnimalPath)) System.IO.File.Delete(fotoAnimalPath);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
