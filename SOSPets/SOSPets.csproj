@@ -234,6 +234,7 @@
       <DependentUpon>DBSOSPets.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Home\criarConta .js" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\Home\animalDetalhe.js" />
     <Content Include="Scripts\Home\animaisCategoria.js" />
@@ -273,6 +274,7 @@
     <Content Include="Views\Static\Faq.cshtml" />
     <Content Include="Views\Static\Contact.cshtml" />
     <Content Include="Views\Static\AboutUs.cshtml" />
+    <Content Include="Views\Home\CriarConta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

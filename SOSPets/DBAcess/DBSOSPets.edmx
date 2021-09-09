@@ -75,6 +75,10 @@
           <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Login" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Whatsapp" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PasswordToken" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Excluido" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK__Animais__AnimalC__3B75D760">
           <End Role="AnimaisCategoria" Type="Self.AnimaisCategoria" Multiplicity="1" />
@@ -163,6 +167,10 @@
           <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Whatsapp" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordToken" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Excluido" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityContainer Name="SOSPETSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
@@ -366,6 +374,10 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="DBAcess.DBObjects.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Excluido" ColumnName="Excluido" />
+                <ScalarProperty Name="PasswordToken" ColumnName="PasswordToken" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

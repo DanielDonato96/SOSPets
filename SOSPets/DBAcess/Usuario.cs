@@ -17,5 +17,9 @@ namespace SOSPets.DBAcess
         public int UsuarioID { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
+        public string Login { get; set; }
+        public string Whatsapp { get; set; }
+        public string PasswordToken { get; set; }
+        public bool Excluido { get; set; }
     }
 }

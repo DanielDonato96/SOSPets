@@ -27,6 +27,11 @@ namespace SOSPets.Controllers
             return View();
         }
 
+        public ActionResult CriarConta()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -188,6 +193,74 @@ namespace SOSPets.Controllers
         #endregion
 
         #region JsonResult
+
+        public JsonResult CreateAccount(FormCollection values)
+        {
+            try
+            {
+                string login = values["txtLogin"];
+                if (string.IsNullOrEmpty(login))
+                    throw new Exception("Login não informado");
+
+                string nome = values["txtNome"];
+                if (string.IsNullOrEmpty(nome))
+                    throw new Exception("Nome não informado");
+
+                string email = values["txtEmail"];
+                if (string.IsNullOrEmpty(email))
+                    throw new Exception("Email não informado");
+
+                string whatsapp = values["whatsapp"];
+
+                if (string.IsNullOrEmpty(whatsapp))
+                    throw new Exception("Whatsapp não informado");
+
+                if (!whatsapp.All(char.IsDigit))
+                    throw new Exception("Whatsapp deve conter apenas números");
+
+                string senha = values["txtSenha"];
+                string confirmSenha = values["txtConfirmSenha"];
+
+                if(string.IsNullOrEmpty(senha))
+                    throw new Exception("Senha não informada");
+
+                if (senha != confirmSenha)
+                    throw new Exception("Senha e confirmação de senha diferentes");
+
+                using (SOSPETSEntities db = new SOSPETSEntities())
+                {
+                    //Valida se já existe algum usuário com o mesmo login/email
+                    Usuario usuarioAntigo = db.Usuarios.Where(u => u.Excluido == false && u.Login == login).FirstOrDefault();
+                    if (usuarioAntigo != null)
+                        throw new Exception(string.Format("Já existe um usuário com o login '{0}' cadastrado.", login));
+
+                    usuarioAntigo = db.Usuarios.Where(u => u.Excluido == false && u.Email == email).FirstOrDefault();
+                    if (usuarioAntigo != null)
+                        throw new Exception(string.Format("Já existe um usuário com o email '{0}' cadastrado.", email));
+
+                    Usuario usuario = new Usuario();
+
+                    usuario.Nome = nome;
+                    usuario.Login = login;
+                    usuario.Email = email;
+                    usuario.PasswordToken = senha;
+                    usuario.Excluido = false;
+                    usuario.Whatsapp = whatsapp;
+
+                    db.Usuarios.Add(usuario);
+                    db.SaveChanges();
+                  
+                }
+
+                return Json(new { success = true, message = "Seu cadasto foi realizado com sucesso. Realize o Login" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+
+
+        }
 
         public JsonResult SaveAnimal(FormCollection values)
         {
