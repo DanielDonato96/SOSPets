@@ -32,6 +32,12 @@ namespace SOSPets.Controllers
             return View();
         }
 
+        public ActionResult MeusAnuncios(int pagina = 1)
+        {
+            ViewBag.Page = pagina;
+            return View();
+        }
+
         //[OutputCache(Duration = 1800, VaryByParam = "slug")]
         public ActionResult AnuncioAnimal(string slug)
         {
@@ -50,7 +56,7 @@ namespace SOSPets.Controllers
             return View(anuncioAnimal);
         }
 
-        public PartialViewResult AnunciosAnimaisListSearch(int start, int limit, int estadoID, int cidadeID)
+        public PartialViewResult AnunciosAnimaisListSearch(int start, int limit, int estadoID, int cidadeID, int usuarioID = 0)
         {
             ObjectParameter total = new ObjectParameter("TotalRecord", typeof(int));
             using (SOSPETSEntities db = new SOSPETSEntities())
@@ -60,6 +66,7 @@ namespace SOSPets.Controllers
                 var i = RouteData;
                     listaAnimais = db.proc_002_GetAnimalList(estadoID,
                                                                 cidadeID,
+                                                                usuarioID,
                                                                 "DtDesaparecimento",
                                                                 "DESC",
                                                                 start,
@@ -70,6 +77,7 @@ namespace SOSPets.Controllers
                 ViewBag.TotalRecord = total.Value;
                 ViewBag.IndexPage = start;
                 ViewBag.LimitRecord = limit;
+                ViewBag.UsuarioID = usuarioID;
             }
 
             ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";

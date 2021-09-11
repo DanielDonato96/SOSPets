@@ -14,6 +14,12 @@ namespace SOSPets.DBAcess
     
     public partial class Usuario
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuario()
+        {
+            this.Animais = new HashSet<Animai>();
+        }
+    
         public int UsuarioID { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
@@ -21,5 +27,8 @@ namespace SOSPets.DBAcess
         public string Whatsapp { get; set; }
         public string PasswordToken { get; set; }
         public bool Excluido { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Animai> Animais { get; set; }
     }
 }

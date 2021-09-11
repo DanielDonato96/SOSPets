@@ -318,13 +318,21 @@ namespace SOSPets.Controllers
         {
             try
             {
+                if (Session["UserName"] == null || Session["UserID"] == null)
+                    throw new Exception("É necessário estar logado no sistema para criar um anúncio");
+
+                string sessionLogin = Session["UserName"].ToString();
+                string sUsuarioID = Session["UserID"].ToString();
+
+                int usuarioID = Convert.ToInt32(sUsuarioID);
+
                 string sAnimalID = values["animalID"];
                 string nome_animal = values["nome_animal"];
                 string animalCategoriaID = values["especie"];
-                string whatsapp = values["whatsapp"];
+                //string whatsapp = values["whatsapp"];
 
                 if (string.IsNullOrEmpty(nome_animal)) throw new Exception("Forneça um nome para o animal");
-                if (string.IsNullOrEmpty(whatsapp)) throw new Exception("Forneça whatsapp para contato");
+                //if (string.IsNullOrEmpty(whatsapp)) throw new Exception("Forneça whatsapp para contato");
 
                 string descricao = values["descricao"];
 
@@ -354,16 +362,32 @@ namespace SOSPets.Controllers
                     {
                         animalID = Convert.ToInt32(sAnimalID);
                         animal = db.Animais.Where(a => a.AnimalID == animalID).FirstOrDefault();
+
+                        if (animal.UsuarioID != usuarioID)
+                            throw new Exception("Você não pode alterar anúncios de outros usuários");
                     }
                     else
                     {
                         dataDesaparecimento = Regex.Replace(string.Format("{0}:00", values["new_data_desaparecimento"]), "T", " ");
                         animal.DtDesaparecimento = Convert.ToDateTime(dataDesaparecimento);
+                        animal.UsuarioID = usuarioID;
                         newRecord = true;
+
+                        var dataAtual = DateTime.Now;
+
+                        int totalAnunciosNoMes = db.Animais
+                            .Where(a => a.UsuarioID == usuarioID &&
+                            a.DtDesaparecimento.Value.Month == dataAtual.Month &&
+                            a.DtDesaparecimento.Value.Year == dataAtual.Year)
+                            .ToList()
+                            .Count;
+
+                        if (totalAnunciosNoMes > 3)
+                            throw new Exception("Você excedeu o limite de anúncios no mês");
                     }
 
                     animal.Nome = nome_animal;
-                    animal.Whatsapp = whatsapp;
+                    animal.Whatsapp = string.Empty;
                     animal.Descricao = descricao;
                     animal.AnimalCategoriaID = Convert.ToInt32(animalCategoriaID);
 
@@ -373,11 +397,24 @@ namespace SOSPets.Controllers
                     animal.SituacaoAnimalID = Convert.ToInt32(sSituacaoAnimalID);
 
                     #region Salvar Imagem do Animal
-                    animal.FotoUrl = UploadFotoAnimal(HttpContext.Request.Files[0]);
+                    string animalFotoUrl = UploadFotoAnimal(HttpContext.Request.Files[0]);
+                    if(!string.IsNullOrEmpty(animalFotoUrl)) 
+                        animal.FotoUrl = animalFotoUrl;
+                    
+
+                    if (newRecord && string.IsNullOrEmpty(animal.FotoUrl))
+                        throw new Exception("É necessário inserir uma foto do animal no anúncio");
+
                     newFotoUrl += animal.FotoUrl;
+
                     #endregion
 
-                    if (newRecord) db.Animais.Add(animal);
+                    if (newRecord)
+                    {
+                        if (animal.SituacaoAnimalID != (int)eSituacaoAnimal.AnuncioAtivo)
+                            throw new Exception("O anúncio deve ser criado com o Status 'Ativo'");
+                        db.Animais.Add(animal);
+                    }
                     db.SaveChanges();
 
                     

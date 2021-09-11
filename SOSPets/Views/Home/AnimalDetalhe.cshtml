@@ -66,10 +66,10 @@
         <label for="bairro" class="control-label">Bairro:</label>
         <input class="form-control" type="text" id="bairro" name="bairro" value="" required><br />
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <label for="whatsapp" class="control-label">Contato Dono:</label>
         <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="" required><br />
-    </div>
+    </div>*@
     <div class="form-group new_data_desaparecimento_container">
         <label for="new_data_desaparecimento" class="control-label">Preencha a data de desaparecimento:</label>
         <input class="form-control" id="new_data_desaparecimento" name="new_data_desaparecimento" value="" type="datetime-local">
@@ -170,10 +170,10 @@
         <label for="bairro" class="control-label">Bairro:</label>
         <input class="form-control" type="text" id="bairro" name="bairro" value="@Model.Bairro" required><br />
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <label for="whatsapp" class="control-label">Contato Dono:</label>
         <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="@Model.Whatsapp" required><br />
-    </div>
+    </div>*@
     <div class="form-group data_desaparecimento_readonly_container">
         <label for="data_desaparecimento_readonly" class="control-label">Desapareceu Em:</label>
         <input class="form-control" id="data_desaparecimento_readonly" name="data_desaparecimento_readonly" value="@Model.DataDesaparecimento.ToString("dd/MM/yyyy")" readonly>

@@ -22,6 +22,13 @@
             width: 100%;
         }
 
+        .edit-label {
+            margin-top: 3px;
+            color: #fff;
+            background-color: blue;
+            border-color: #ccc;
+        }
+
         .status-grey {
             color: #fff;
             background-color: lightgrey;
@@ -151,6 +158,8 @@
                             <div class="row price-leiloes" style="margin-top:20px!important;">
                                 <div class="col-xl-12">
                                     <center>
+                                        <span class="animal-dono-contato">Local: @string.Format("({0}) - {1}", itemAnimal.UF, itemAnimal.Cidade)</span> <br />
+                                        <span class="animal-dono-contato">Dono: @itemAnimal.NomeDono</span> <br />
                                         <span class="animal-dono-contato">Contato Dono: @itemAnimal.Whatsapp</span>
                                     </center>
                                 </div>
@@ -160,6 +169,13 @@
                         <a href="@url_animal" class="label big-label @itemAnimal.StatusAnimal">
                             @itemAnimal.SituacaoAnimal
                         </a>
+
+                        @if (ViewBag.UsuarioID != 0)
+                        {
+                            <a href="/Home/AnimalDetalhe/?animalID=@itemAnimal.AnimalID" class="label big-label edit-label">
+                                Editar o Anúncio
+                            </a>
+                        }
                     </div>
 
                 </div>

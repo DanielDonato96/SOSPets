@@ -44,35 +44,6 @@ namespace SOSPets.DBAcess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalDetail>("proc_001_GetAnimalDetail", animalIDParameter);
         }
     
-        public virtual ObjectResult<vwAnimalList> proc_002_GetAnimalList(Nullable<int> estadoID, Nullable<int> cidadeID, string sort, string dir, Nullable<int> start, Nullable<int> limit, ObjectParameter totalRecord)
-        {
-            var estadoIDParameter = estadoID.HasValue ?
-                new ObjectParameter("EstadoID", estadoID) :
-                new ObjectParameter("EstadoID", typeof(int));
-    
-            var cidadeIDParameter = cidadeID.HasValue ?
-                new ObjectParameter("CidadeID", cidadeID) :
-                new ObjectParameter("CidadeID", typeof(int));
-    
-            var sortParameter = sort != null ?
-                new ObjectParameter("Sort", sort) :
-                new ObjectParameter("Sort", typeof(string));
-    
-            var dirParameter = dir != null ?
-                new ObjectParameter("Dir", dir) :
-                new ObjectParameter("Dir", typeof(string));
-    
-            var startParameter = start.HasValue ?
-                new ObjectParameter("Start", start) :
-                new ObjectParameter("Start", typeof(int));
-    
-            var limitParameter = limit.HasValue ?
-                new ObjectParameter("Limit", limit) :
-                new ObjectParameter("Limit", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalList>("proc_002_GetAnimalList", estadoIDParameter, cidadeIDParameter, sortParameter, dirParameter, startParameter, limitParameter, totalRecord);
-        }
-    
         public virtual ObjectResult<vwAnimalEstados> proc_003_ConsultaAnimaisPorEstado()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalEstados>("proc_003_ConsultaAnimaisPorEstado");
@@ -94,6 +65,39 @@ namespace SOSPets.DBAcess
                 new ObjectParameter("EstadoID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwCidades>("proc_005_GetCidades", estadoIDParameter);
+        }
+    
+        public virtual ObjectResult<vwAnimalList> proc_002_GetAnimalList(Nullable<int> estadoID, Nullable<int> cidadeID, Nullable<int> usuarioID, string sort, string dir, Nullable<int> start, Nullable<int> limit, ObjectParameter totalRecord)
+        {
+            var estadoIDParameter = estadoID.HasValue ?
+                new ObjectParameter("EstadoID", estadoID) :
+                new ObjectParameter("EstadoID", typeof(int));
+    
+            var cidadeIDParameter = cidadeID.HasValue ?
+                new ObjectParameter("CidadeID", cidadeID) :
+                new ObjectParameter("CidadeID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var sortParameter = sort != null ?
+                new ObjectParameter("Sort", sort) :
+                new ObjectParameter("Sort", typeof(string));
+    
+            var dirParameter = dir != null ?
+                new ObjectParameter("Dir", dir) :
+                new ObjectParameter("Dir", typeof(string));
+    
+            var startParameter = start.HasValue ?
+                new ObjectParameter("Start", start) :
+                new ObjectParameter("Start", typeof(int));
+    
+            var limitParameter = limit.HasValue ?
+                new ObjectParameter("Limit", limit) :
+                new ObjectParameter("Limit", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalList>("proc_002_GetAnimalList", estadoIDParameter, cidadeIDParameter, usuarioIDParameter, sortParameter, dirParameter, startParameter, limitParameter, totalRecord);
         }
     }
 }

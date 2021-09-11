@@ -101,7 +101,7 @@ function clearAnimalInputs() {
 
     $('#animalID').val(''); 
     $('#nome_animal').val('');
-    $('#whatsapp').val('');
+    //$('#whatsapp').val('');
 
     $('.data_desaparecimento_readonly_container').hide();
 

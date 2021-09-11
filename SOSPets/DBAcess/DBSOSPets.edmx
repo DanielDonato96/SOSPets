@@ -21,6 +21,7 @@
           <Property Name="FriendlyUrl" Type="varchar" MaxLength="500" />
           <Property Name="Descricao" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="Bairro" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="AnimaisCategoria">
           <Key>
@@ -116,12 +117,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Animais__Usuario__14270015">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Animais" Type="Self.Animais" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Animais">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="proc_001_GetAnimalDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="AnimalID" Type="int" Mode="In" />
         </Function>
         <Function Name="proc_002_GetAnimalList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EstadoID" Type="int" Mode="In" />
           <Parameter Name="CidadeID" Type="int" Mode="In" />
+          <Parameter Name="UsuarioID" Type="int" Mode="In" />
           <Parameter Name="Sort" Type="varchar" Mode="In" />
           <Parameter Name="Dir" Type="varchar" Mode="In" />
           <Parameter Name="Start" Type="int" Mode="In" />
@@ -155,6 +169,10 @@
             <End Role="SituacaoAnimal" EntitySet="SituacaoAnimal" />
             <End Role="Animais" EntitySet="Animais" />
           </AssociationSet>
+          <AssociationSet Name="FK__Animais__Usuario__14270015" Association="Self.FK__Animais__Usuario__14270015">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Animais" EntitySet="Animais" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -171,6 +189,7 @@
           <Property Name="Whatsapp" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="PasswordToken" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Excluido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Animais" Relationship="DBAcess.DBObjects.FK__Animais__Usuario__14270015" FromRole="Usuario" ToRole="Animai" />
         </EntityType>
         <EntityContainer Name="SOSPETSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
@@ -195,21 +214,26 @@
           <FunctionImport Name="proc_001_GetAnimalDetail" ReturnType="Collection(DBAcess.DBObjects.vwAnimalDetail)">
           <Parameter Name="AnimalID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="proc_002_GetAnimalList" ReturnType="Collection(DBAcess.DBObjects.vwAnimalList)">
-            <Parameter Name="EstadoID" Mode="In" Type="Int32" />
-            <Parameter Name="CidadeID" Mode="In" Type="Int32" />
-            <Parameter Name="Sort" Mode="In" Type="String" />
-            <Parameter Name="Dir" Mode="In" Type="String" />
-            <Parameter Name="Start" Mode="In" Type="Int32" />
-            <Parameter Name="Limit" Mode="In" Type="Int32" />
-            <Parameter Name="TotalRecord" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="proc_003_ConsultaAnimaisPorEstado" ReturnType="Collection(DBAcess.DBObjects.vwAnimalEstados)" />
           <FunctionImport Name="proc_004_ConsultaAnimaisCidade" ReturnType="Collection(DBAcess.DBObjects.vwAnimalCidades)">
           <Parameter Name="EstadoID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="proc_005_GetCidades" ReturnType="Collection(DBAcess.DBObjects.vwCidades)">
           <Parameter Name="EstadoID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK__Animais__Usuario__14270015" Association="DBAcess.DBObjects.FK__Animais__Usuario__14270015">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Animai" EntitySet="Animais" />
+          </AssociationSet>
+          <FunctionImport Name="proc_002_GetAnimalList" ReturnType="Collection(DBAcess.DBObjects.vwAnimalList)">
+            <Parameter Name="EstadoID" Mode="In" Type="Int32" />
+            <Parameter Name="CidadeID" Mode="In" Type="Int32" />
+            <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
+            <Parameter Name="Sort" Mode="In" Type="String" />
+            <Parameter Name="Dir" Mode="In" Type="String" />
+            <Parameter Name="Start" Mode="In" Type="Int32" />
+            <Parameter Name="Limit" Mode="In" Type="Int32" />
+            <Parameter Name="TotalRecord" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Animai">
@@ -231,6 +255,8 @@
           <NavigationProperty Name="cidade" Relationship="DBAcess.DBObjects.FK__Animais__CidadeI__6B24EA82" FromRole="Animai" ToRole="cidade" />
           <NavigationProperty Name="SituacaoAnimal" Relationship="DBAcess.DBObjects.FK__Animais__Situaca__5EBF139D" FromRole="Animai" ToRole="SituacaoAnimal" />
           <Property Name="Bairro" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="DBAcess.DBObjects.FK__Animais__Usuario__14270015" FromRole="Animai" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="AnimaisCategoria">
           <Key>
@@ -323,7 +349,7 @@
           <Property Type="String" Name="Whatsapp" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="NomeAnimal" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Descricao" Nullable="false" MaxLength="300" />
-          <Property Type="String" Name="FriendlyUrl" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="FriendlyUrl" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="CategoriaAnimal" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="SituacaoAnimal" Nullable="false" MaxLength="90" />
           <Property Type="String" Name="StatusAnimal" Nullable="false" MaxLength="30" />
@@ -332,23 +358,10 @@
           <Property Type="String" Name="DtDesaparecimento" Nullable="true" MaxLength="4000" />
           <Property Type="String" Name="Bairro" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
-        </ComplexType>
-        <ComplexType Name="vwAnimalList">
-          <Property Type="Int32" Name="AnimalID" Nullable="false" />
-          <Property Type="String" Name="FotoUrl" Nullable="false" MaxLength="300" />
-          <Property Type="String" Name="Whatsapp" Nullable="true" MaxLength="15" />
-          <Property Type="String" Name="NomeAnimal" Nullable="false" MaxLength="255" />
-          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="300" />
-          <Property Type="String" Name="FriendlyUrl" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="DtDesaparecimento" Nullable="true" MaxLength="4000" />
-          <Property Type="String" Name="Bairro" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="CategoriaAnimal" Nullable="false" MaxLength="255" />
-          <Property Type="String" Name="SituacaoAnimal" Nullable="false" MaxLength="90" />
-          <Property Type="String" Name="StatusAnimal" Nullable="false" MaxLength="30" />
-          <Property Type="String" Name="Cidade" Nullable="true" MaxLength="120" />
-          <Property Type="String" Name="Estado" Nullable="true" MaxLength="75" />
-          <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
-          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="NomeDono" Nullable="false" MaxLength="255" />
         </ComplexType>
         <ComplexType Name="vwAnimalEstados">
           <Property Type="Int32" Name="EstadoID" Nullable="false" />
@@ -364,6 +377,39 @@
         <ComplexType Name="vwCidades">
           <Property Type="Int32" Name="CidadeID" Nullable="false" />
           <Property Type="String" Name="Nome" Nullable="true" MaxLength="120" />
+        </ComplexType>
+        <Association Name="FK__Animais__Usuario__14270015">
+          <End Type="DBAcess.DBObjects.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DBAcess.DBObjects.Animai" Role="Animai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Animai">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="vwAnimalList">
+          <Property Type="Int32" Name="AnimalID" Nullable="false" />
+          <Property Type="String" Name="FotoUrl" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="Whatsapp" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NomeAnimal" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="FriendlyUrl" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="DtDesaparecimento" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="Bairro" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CategoriaAnimal" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="SituacaoAnimal" Nullable="false" MaxLength="90" />
+          <Property Type="String" Name="StatusAnimal" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Cidade" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="75" />
+          <Property Type="String" Name="UF" Nullable="true" MaxLength="2" />
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="Int32" Name="UsuarioID" Nullable="false" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="NomeDono" Nullable="false" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -387,6 +433,7 @@
           <EntitySetMapping Name="Animais">
             <EntityTypeMapping TypeName="DBAcess.DBObjects.Animai">
               <MappingFragment StoreEntitySet="Animais">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="Bairro" ColumnName="Bairro" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
@@ -470,27 +517,10 @@
                 <ScalarProperty Name="DtDesaparecimento" ColumnName="DtDesaparecimento" />
                 <ScalarProperty Name="Bairro" ColumnName="Bairro" />
                 <ScalarProperty Name="UF" ColumnName="UF" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="proc_002_GetAnimalList" FunctionName="DBAcess.DBObjects.Store.proc_002_GetAnimalList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalList">
-                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
-                <ScalarProperty Name="FotoUrl" ColumnName="FotoUrl" />
-                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
-                <ScalarProperty Name="NomeAnimal" ColumnName="NomeAnimal" />
-                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-                <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
-                <ScalarProperty Name="DtDesaparecimento" ColumnName="DtDesaparecimento" />
-                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
-                <ScalarProperty Name="CategoriaAnimal" ColumnName="CategoriaAnimal" />
-                <ScalarProperty Name="SituacaoAnimal" ColumnName="SituacaoAnimal" />
-                <ScalarProperty Name="StatusAnimal" ColumnName="StatusAnimal" />
-                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="UF" ColumnName="UF" />
-                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="NomeDono" ColumnName="NomeDono" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -521,6 +551,31 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_002_GetAnimalList" FunctionName="DBAcess.DBObjects.Store.proc_002_GetAnimalList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBAcess.DBObjects.vwAnimalList">
+                <ScalarProperty Name="AnimalID" ColumnName="AnimalID" />
+                <ScalarProperty Name="FotoUrl" ColumnName="FotoUrl" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="NomeAnimal" ColumnName="NomeAnimal" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="FriendlyUrl" ColumnName="FriendlyUrl" />
+                <ScalarProperty Name="DtDesaparecimento" ColumnName="DtDesaparecimento" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="CategoriaAnimal" ColumnName="CategoriaAnimal" />
+                <ScalarProperty Name="SituacaoAnimal" ColumnName="SituacaoAnimal" />
+                <ScalarProperty Name="StatusAnimal" ColumnName="StatusAnimal" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NomeDono" ColumnName="NomeDono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -536,7 +591,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

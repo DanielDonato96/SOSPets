@@ -28,5 +28,9 @@ namespace SOSPets.DBAcess
         public string Estado { get; set; }
         public string UF { get; set; }
         public Nullable<long> RowNumber { get; set; }
+        public int UsuarioID { get; set; }
+        public string Login { get; set; }
+        public string Email { get; set; }
+        public string NomeDono { get; set; }
     }
 }

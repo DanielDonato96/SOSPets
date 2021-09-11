@@ -26,9 +26,11 @@ namespace SOSPets.DBAcess
         public string FriendlyUrl { get; set; }
         public string Descricao { get; set; }
         public string Bairro { get; set; }
+        public int UsuarioID { get; set; }
     
         public virtual AnimaisCategoria AnimaisCategoria { get; set; }
         public virtual cidade cidade { get; set; }
         public virtual SituacaoAnimal SituacaoAnimal { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

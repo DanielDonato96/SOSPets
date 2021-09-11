@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="DBAcess.DBObjects.SituacaoAnimal" Width="1.5" PointX="3.375" PointY="5.875" />
         <AssociationConnector Association="DBAcess.DBObjects.FK__Animais__CidadeI__6B24EA82" />
         <AssociationConnector Association="DBAcess.DBObjects.FK__Animais__Situaca__5EBF139D" />
+        <AssociationConnector Association="DBAcess.DBObjects.FK__Animais__Usuario__14270015" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
