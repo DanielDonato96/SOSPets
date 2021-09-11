@@ -14,40 +14,25 @@
         <div id="login-summary" class="alert alert-warning" role="alert" style="display: none;">
         </div>
 
-        <div class="group-control">
-            <label class="control-label" for="txtLogin">Login</label>
-            <input class="form-control" type="text" id="txtLogin" required name="txtLogin" maxlength="60">
-        </div>
-
-        <div class="group-control">
-            <label class="control-label" for="txtNome">Nome</label>
-            <input class="form-control" type="text" id="txtNome" required name="txtNome" maxlength="100">
-        </div>
-
-        <div class="group-control">
-            <label class="control-label" for="txtLogin">Email</label>
-            <input class="form-control" type="text" id="txtEmail" required name="txtEmail" maxlength="90">
-        </div>
-
-        <div class="form-group">
-            <label for="whatsapp" class="control-label">Whatsapp de Contato:</label>
-            <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="" required>
-        </div>
-
         <div class="group-control" style="margin-top: 15px;">
-            <label class="control-label" for="txtSenha">Senha</label>
+            <label class="control-label" for="txtSenha">Senha Atual</label>
             <input class="form-control" type="password" id="txtSenha" required name="txtSenha" maxlength="30">
         </div>
 
         <div class="group-control" style="margin-top: 15px;">
-            <label class="control-label" for="txtSenha">Confirme sua Senha</label>
-            <input class="form-control" type="password" id="txtConfirmSenha" required name="txtConfirmSenha" maxlength="30">
+            <label class="control-label" for="txtSenha">Nova Senha</label>
+            <input class="form-control" type="password" id="txtNovaSenha" required name="txtNovaSenha" maxlength="30">
+        </div>
+
+        <div class="group-control" style="margin-top: 15px;">
+            <label class="control-label" for="txtSenha">Confirme sua Nova Senha</label>
+            <input class="form-control" type="password" id="txtConfirmNovaSenha" required name="txtConfirmNovaSenha" maxlength="30">
         </div>
 
         <div class="group-control" style="margin-top: 15px;">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
-                    <button id="btnEnter" type="button" class="btn btn-primary" style="width: 100%;">Entrar</button>
+                    <button id="btnChangePassword" type="button" class="btn btn-primary" style="width: 100%;">Alterar Senha</button>
                 </div>
 
             </div>
@@ -76,4 +61,4 @@
 </div>
 
 <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
-<script src="~/Scripts/Home/criarConta.js"></script>
+<script src="~/Scripts/Customer/alterarSenha.js"></script>

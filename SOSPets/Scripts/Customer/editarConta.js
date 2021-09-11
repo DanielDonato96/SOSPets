@@ -1,17 +1,17 @@
 ﻿$(function () {   
 
-    $('#btnEnter').click(function () {
-        createAccount();
+    $('#btnEditAccount').click(function () {
+        editAccount();
     });
 
 });
 
-var createAccount = function () {
+var editAccount = function () {
     var formData = new FormData($('form')[0]);
 
     $.ajax({
         type: 'POST',
-        url: '/Home/CreateAccount/',
+        url: '/Customer/EditAccount/',
         data: formData,
         cache: false,
         contentType: false,
@@ -19,13 +19,14 @@ var createAccount = function () {
         success: function (data) {
             if (data.success) {
                 showNotificationModal(data.message);
+                $('form')[0].reset();
 
             }
             else showNotificationModal(data.message);
             
         },
         error: function (data) {
-            showNotificationModal('Falha no servidor ao tentar criar uma conta, tente novamente mais tarde')
+            showNotificationModal('Falha no servidor ao tentar alterar sua conta, tente novamente mais tarde')
 
         }
     });

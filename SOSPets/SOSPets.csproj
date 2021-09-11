@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnunciosController .cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\StaticController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DBAcess\Animai.cs">
@@ -234,7 +235,10 @@
       <DependentUpon>DBSOSPets.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\Home\criarConta .js" />
+    <Content Include="Scripts\Customer\editarConta.js" />
+    <Content Include="Scripts\Customer\alterarSenha.js" />
+    <Content Include="Scripts\Home\acessarConta.js" />
+    <Content Include="Scripts\Home\criarConta.js" />
     <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\Home\animalDetalhe.js" />
     <Content Include="Scripts\Home\animaisCategoria.js" />
@@ -275,6 +279,9 @@
     <Content Include="Views\Static\Contact.cshtml" />
     <Content Include="Views\Static\AboutUs.cshtml" />
     <Content Include="Views\Home\CriarConta.cshtml" />
+    <Content Include="Views\Home\AcessarConta.cshtml" />
+    <Content Include="Views\Customer\AlterarSenha.cshtml" />
+    <Content Include="Views\Customer\EditarConta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

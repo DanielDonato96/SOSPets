@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Cadastro de Usuário";
+    ViewBag.Title = "Editar Conta";
 }
 
 <head>
@@ -16,38 +16,28 @@
 
         <div class="group-control">
             <label class="control-label" for="txtLogin">Login</label>
-            <input class="form-control" type="text" id="txtLogin" required name="txtLogin" maxlength="60">
+            <input class="form-control" type="text" id="txtLogin" required value="@ViewBag.Usuario.Login" name="txtLogin" maxlength="60">
         </div>
 
         <div class="group-control">
             <label class="control-label" for="txtNome">Nome</label>
-            <input class="form-control" type="text" id="txtNome" required name="txtNome" maxlength="100">
+            <input class="form-control" type="text" id="txtNome" required value="@ViewBag.Usuario.Nome" name="txtNome" maxlength="100">
         </div>
 
         <div class="group-control">
             <label class="control-label" for="txtLogin">Email</label>
-            <input class="form-control" type="text" id="txtEmail" required name="txtEmail" maxlength="90">
+            <input class="form-control" type="text" id="txtEmail" required value="@ViewBag.Usuario.Email" name="txtEmail" maxlength="90">
         </div>
 
         <div class="form-group">
             <label for="whatsapp" class="control-label">Whatsapp de Contato:</label>
-            <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="" required>
-        </div>
-
-        <div class="group-control" style="margin-top: 15px;">
-            <label class="control-label" for="txtSenha">Senha</label>
-            <input class="form-control" type="password" id="txtSenha" required name="txtSenha" maxlength="30">
-        </div>
-
-        <div class="group-control" style="margin-top: 15px;">
-            <label class="control-label" for="txtSenha">Confirme sua Senha</label>
-            <input class="form-control" type="password" id="txtConfirmSenha" required name="txtConfirmSenha" maxlength="30">
+            <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="@ViewBag.Usuario.Whatsapp" required>
         </div>
 
         <div class="group-control" style="margin-top: 15px;">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
-                    <button id="btnEnter" type="button" class="btn btn-primary" style="width: 100%;">Entrar</button>
+                    <button id="btnEditAccount" type="button" class="btn btn-primary" style="width: 100%;">Alterar Dados</button>
                 </div>
 
             </div>
@@ -76,4 +66,4 @@
 </div>
 
 <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
-<script src="~/Scripts/Home/criarConta.js"></script>
+<script src="~/Scripts/Customer/editarConta.js"></script>

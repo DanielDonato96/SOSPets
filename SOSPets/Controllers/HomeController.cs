@@ -27,6 +27,11 @@ namespace SOSPets.Controllers
             return View();
         }
 
+        public ActionResult AcessarConta()
+        {
+            return View();
+        }
+
         public ActionResult CriarConta()
         {
             return View();
@@ -48,6 +53,15 @@ namespace SOSPets.Controllers
 
         public ActionResult AnimaisCategorias()
         {
+            if(Session["UserName"] == null)
+                return Redirect("/");
+
+            string login = Session["UserName"].ToString();
+
+            if (login != "daniel")
+                return Redirect("/");
+
+
             using (SOSPETSEntities db = new SOSPETSEntities())
             {
                 ViewBag.AnimaisCategoria = db.AnimaisCategorias.ToList();
@@ -250,6 +264,44 @@ namespace SOSPets.Controllers
                     db.Usuarios.Add(usuario);
                     db.SaveChanges();
                   
+                }
+
+                return Json(new { success = true, message = "Seu cadasto foi realizado com sucesso. Realize o Login" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+
+
+        }
+
+        public JsonResult Login(FormCollection values)
+        {
+            try
+            {
+                string login = values["txtLogin"];
+                if (string.IsNullOrEmpty(login))
+                    throw new Exception("Login não informado");
+
+                string senha = values["txtSenha"];
+
+                if (string.IsNullOrEmpty(senha))
+                    throw new Exception("Senha não informada");
+
+                using (SOSPETSEntities db = new SOSPETSEntities())
+                {
+                    Usuario usuario = db.Usuarios.Where(u => u.Login == login & !u.Excluido).FirstOrDefault();
+
+                    if (usuario == null)
+                        throw new Exception("Nenhum usuário com esse login foi encontrado");
+
+                    if (usuario.PasswordToken != senha)
+                        throw new Exception("Senha inválida");
+
+                    Session["UserID"] = usuario.UsuarioID.ToString();
+                    Session["UserName"] = usuario.Login.ToString();
+
                 }
 
                 return Json(new { success = true, message = "Seu cadasto foi realizado com sucesso. Realize o Login" });
