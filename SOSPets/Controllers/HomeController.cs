@@ -394,6 +394,13 @@ namespace SOSPets.Controllers
                     animal.CidadeID = Convert.ToInt32(sCidadeID);
                     animal.Bairro = bairro;
 
+                    if (!newRecord)
+                    {
+                        if(animal.SituacaoAnimalID == (int)eSituacaoAnimal.Encontrado
+                            && Convert.ToInt32(sSituacaoAnimalID) != (int)eSituacaoAnimal.Encontrado)
+                            throw new Exception("Não é possível editar dados de um animal já encontrado");
+                    }
+
                     animal.SituacaoAnimalID = Convert.ToInt32(sSituacaoAnimalID);
 
                     #region Salvar Imagem do Animal
