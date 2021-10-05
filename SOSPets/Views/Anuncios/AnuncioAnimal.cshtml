@@ -7,6 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
+        .dados-animal {
+            background-color: white;
+            /*padding-bottom: 66px;*/
+        }
+
+            .container-dados-animal h2 {
+                text-align: center;
+                padding: 6px 0 6px 0;
+                background-color: white;
+                border-radius: 5px;
+            }
+
         h2 {
             padding-left: 18px;
         }
@@ -86,43 +98,46 @@
 </head>
 
 <body>
-    <div class="dados-animal">
+    <div class="container-dados-animal">
 
         <h2>Dados do Animal</h2>
 
-        <div class="row">
+        
 
-            <div class="col-lg-6 col-md-6">
-                <div class="card">
-                    <img src="@ViewBag.FotoAnimalPath/@Model.animal.FotoUrl" alt="@Model.animal.NomeAnimal" style="width:100%">
-                    <div class="container">
-                        <h4 class="animal-nome"><b>@Model.animal.NomeAnimal (@Model.animal.CategoriaAnimal)</b></h4>
+        <div class="panel-body dados-animal">
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6">
+                    <div class="card">
+                        <img src="@ViewBag.FotoAnimalPath/@Model.animal.FotoUrl" alt="@Model.animal.NomeAnimal" style="width:100%">
+                        <div class="container">
+                            <h4 class="animal-nome"><b>@Model.animal.NomeAnimal (@Model.animal.CategoriaAnimal)</b></h4>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-6 col-md-6">
-                <div class="card">
-                    <div class="container">
-                        <h4 class="data-animal-desaparecimento">Desapareceu em: @Model.animal.DtDesaparecimento </h4>
-                        <h4 class="data-animal-desaparecimento-mobile"> Desapareceu em:</h4>
-                        <span class="data-animal-desaparecimento-mobile">@Model.animal.DtDesaparecimento</span>
-                        <span style="margin-bottom: 10px;" class="label big-label @Model.animal.StatusAnimal">@Model.animal.SituacaoAnimal</span>
-                        <p>Estado: @Model.animal.Estado - (@Model.animal.UF)</p>
-                        <p>Cidade: @Model.animal.Cidade</p>
-                        <p>Bairro: @Model.animal.Bairro</p>
-                        <p>Dono do Animal: @Model.animal.NomeDono</p>
-                        <p>Entrar em Contato pelo número: @Model.animal.Whatsapp</p>
-                        <h4>Informações adicionais:</h4>
-                        <p class="animal-descricao">@Model.animal.Descricao</p>
-                        <p class="animal-descricao-mobile">@Model.animal.Descricao</p>
+                <div class="col-lg-6 col-md-6">
+                    <div class="card">
+                        <div class="container">
+                            <h4 class="data-animal-desaparecimento">Desapareceu em: @Model.animal.DtDesaparecimento </h4>
+                            <h4 class="data-animal-desaparecimento-mobile"> Desapareceu em:</h4>
+                            <span class="data-animal-desaparecimento-mobile">@Model.animal.DtDesaparecimento</span>
+                            <span style="margin-bottom: 10px;" class="label big-label @Model.animal.StatusAnimal">@Model.animal.SituacaoAnimal</span>
+                            <p>Estado: @Model.animal.Estado - (@Model.animal.UF)</p>
+                            <p>Cidade: @Model.animal.Cidade</p>
+                            <p>Bairro: @Model.animal.Bairro</p>
+                            <p>Dono do Animal: @Model.animal.NomeDono</p>
+                            <p>Entrar em Contato pelo número: @Model.animal.Whatsapp</p>
+                            <h4>Informações adicionais:</h4>
+                            <p class="animal-descricao">@Model.animal.Descricao</p>
+                            <p class="animal-descricao-mobile">@Model.animal.Descricao</p>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
 
+            </div>
         </div>
-
 
 
     </div>
