@@ -2,8 +2,6 @@
     ViewBag.Title = "Pesquisa de Animais | SOS PETS";
 }
 
-
-
 <link rel="stylesheet" href="~/Content/CSS/Anuncios/anunciosAnimaisIndex.css">
 
 <ol class="breadcrumb" style="margin-top:15px;">
@@ -29,25 +27,32 @@
 
 <input id="parametros-busca" hidden data-page="@ViewBag.Page" />
 
-<center><h4>Veja abaixo os resultados:</h4></center>
+<div class="animais-container">
 
-<div class="lote-info-nav row" style="display:none;">
-    <div class="col-md-2">
-        <span class="text-paging">Página <span class="index-page"></span> de <span class="total-page"></span> <br />(<span class="total-lotes"></span>)</span>
+    <div class="panel-body">
+
+        <center><h4>Veja abaixo os resultados:</h4></center>
+
+        <div class="lote-info-nav row" style="display:none;">
+            <div class="col-md-2">
+                <span class="text-paging">Página <span class="index-page"></span> de <span class="total-page"></span> <br />(<span class="total-lotes"></span>)</span>
+            </div>
+            <div class="col-md-8 text-center">
+                <nav aria-label="...">
+                    <ul class="nav-paging pagination">
+                        <li class="disabled"><a href="#" aria-label="Anterior" index="prev" title="Página Anterior"><span aria-hidden="true"> « </span></a></li>
+                        <li class="active"><a href="#" index="1"> 1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#" aria-label="Próximo" index="next" title="Próxima Página"><span aria-hidden="true"> » </span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        <div id="content_list_lote" class="content-list-lote">
+        </div>
+
     </div>
-    <div class="col-md-8 text-center">
-        <nav aria-label="...">
-            <ul class="nav-paging pagination">
-                <li class="disabled"><a href="#" aria-label="Anterior" index="prev" title="Página Anterior"><span aria-hidden="true"> « </span></a></li>
-                <li class="active"><a href="#" index="1"> 1 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#" aria-label="Próximo" index="next" title="Próxima Página"><span aria-hidden="true"> » </span></a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="col-md-2">
-    </div>
-</div>
-<div id="content_list_lote" class="content-list-lote">
 </div>
 
 

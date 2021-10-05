@@ -46,7 +46,7 @@
                             <li><a href="/Customer/AlterarSenha">Alterar Senha</a></li>
                             <li><a href="/Customer/EditarConta">Editar Cadastro</a></li>
                             <li><a href="/Anuncios/MeusAnuncios">Meus Anúncios</a></li>
-                            @if (Session["UserName"] != null)
+                            @if ((string)Session["UserName"] == "daniel")
                             {
                                 <li><a href="/Home/AnimaisCategorias">Cadastrar Espécies</a></li>
                             }
