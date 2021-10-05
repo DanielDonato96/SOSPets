@@ -1,0 +1,9 @@
+﻿.account-container {
+    background-color: white;
+    /*padding-bottom: 66px;*/
+}
+
+.account-container h2 {
+    text-align: center;
+    padding: 6px 0 6px 0;
+}

@@ -6,26 +6,34 @@
     <link rel="stylesheet" href="~/Content/CSS/Home/animaisCategoria.css">
 </head>
 
-<h2>@ViewBag.Title</h2>
+<div class="account-container">
 
-<div class="inserir_animal_categoria">
+    <h2>@ViewBag.Title</h2>
 
-    <label for="nome_categoria">Categoria:</label>
-    <input id="nome_categoria" type="text" name="nome_categoria" onkeyup="checarInputCategoria()">
-    <button class="btn-save" disabled>Inserir</button>
-</div>
+    <div class="panel-body">
 
-<div id="lista-categorias">
+        <div class="inserir_animal_categoria">
 
-    @foreach (var categoria in ViewBag.AnimaisCategoria)
-    {
-    <div class="animal_categoria">
-        <div class="categoria_nome" data-ID="@categoria.AnimalCategoriaID">Categoria: @categoria.Nome </div>
-        <input data-index="@categoria.AnimalCategoriaID" class="nome_categoria_atualizar" type="text" name="nome_categoria_atualizar">
-        <button class="btn-update" data-ID="@categoria.AnimalCategoriaID">Atualizar</button>
-        <button class="btn-delete" data-ID="@categoria.AnimalCategoriaID" data-toggle="modal" data-target="#deleteAnimaisCategoriasConfirmation">Deletar</button>
+            <label for="nome_categoria">Categoria:</label>
+            <input id="nome_categoria" type="text" name="nome_categoria" onkeyup="checarInputCategoria()">
+            <button class="btn-save" disabled>Inserir</button>
+        </div>
+
+        <div id="lista-categorias">
+
+            @foreach (var categoria in ViewBag.AnimaisCategoria)
+            {
+                <div class="animal_categoria">
+                    <div class="categoria_nome" data-ID="@categoria.AnimalCategoriaID">Categoria: @categoria.Nome </div>
+                    <input data-index="@categoria.AnimalCategoriaID" class="nome_categoria_atualizar" type="text" name="nome_categoria_atualizar">
+                    <button class="btn-update" data-ID="@categoria.AnimalCategoriaID">Atualizar</button>
+                    <button class="btn-delete" data-ID="@categoria.AnimalCategoriaID" data-toggle="modal" data-target="#deleteAnimaisCategoriasConfirmation">Deletar</button>
+                </div>
+            }
+
+        </div>
+
     </div>
-    }
 
 </div>
 

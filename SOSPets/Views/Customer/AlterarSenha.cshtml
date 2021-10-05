@@ -1,43 +1,47 @@
 ﻿@{
-    ViewBag.Title = "Cadastro de Usuário";
+    ViewBag.Title = "Alteração de Senha de Usuário";
 }
 
 <head>
-
+    <link rel="stylesheet" href="~/Content/CSS/Home/Account.css">
 </head>
 
-<h2>@ViewBag.Title</h2>
+<div class="account-container">
 
-<div class="panel-body">
+    <h2>@ViewBag.Title</h2>
 
-    <form id="formLogon" method="post">
-        <div id="login-summary" class="alert alert-warning" role="alert" style="display: none;">
-        </div>
+    <div class="panel-body">
 
-        <div class="group-control" style="margin-top: 15px;">
-            <label class="control-label" for="txtSenha">Senha Atual</label>
-            <input class="form-control" type="password" id="txtSenha" required name="txtSenha" maxlength="30">
-        </div>
-
-        <div class="group-control" style="margin-top: 15px;">
-            <label class="control-label" for="txtSenha">Nova Senha</label>
-            <input class="form-control" type="password" id="txtNovaSenha" required name="txtNovaSenha" maxlength="30">
-        </div>
-
-        <div class="group-control" style="margin-top: 15px;">
-            <label class="control-label" for="txtSenha">Confirme sua Nova Senha</label>
-            <input class="form-control" type="password" id="txtConfirmNovaSenha" required name="txtConfirmNovaSenha" maxlength="30">
-        </div>
-
-        <div class="group-control" style="margin-top: 15px;">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <button id="btnChangePassword" type="button" class="btn btn-primary" style="width: 100%;">Alterar Senha</button>
-                </div>
-
+        <form id="formLogon" method="post">
+            <div id="login-summary" class="alert alert-warning" role="alert" style="display: none;">
             </div>
-        </div>
-    </form>
+
+            <div class="group-control" style="margin-top: 15px;">
+                <label class="control-label" for="txtSenha">Senha Atual</label>
+                <input class="form-control" type="password" id="txtSenha" required name="txtSenha" maxlength="30">
+            </div>
+
+            <div class="group-control" style="margin-top: 15px;">
+                <label class="control-label" for="txtSenha">Nova Senha</label>
+                <input class="form-control" type="password" id="txtNovaSenha" required name="txtNovaSenha" maxlength="30">
+            </div>
+
+            <div class="group-control" style="margin-top: 15px;">
+                <label class="control-label" for="txtSenha">Confirme sua Nova Senha</label>
+                <input class="form-control" type="password" id="txtConfirmNovaSenha" required name="txtConfirmNovaSenha" maxlength="30">
+            </div>
+
+            <div class="group-control" style="margin-top: 15px;">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <button id="btnChangePassword" type="button" class="btn btn-primary" style="width: 100%;">Alterar Senha</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 @*Modal de notificações *@

@@ -43,8 +43,8 @@
 <div id="carousel-propagandas">
     @foreach (var propaganda in ViewBag.Propagandas)
     {
-        <div class="carousel-item" style="text-align:center;color:white">
-            <h3>@propaganda.Titulo</h3>
+        <div class="carousel-item" style="text-align:center;">
+            <h3 style="background-color:white;border-radius:5px;">@propaganda.Titulo</h3>
             <img class="center propaganda_img" src="@ViewBag.PropagandaPath/@propaganda.PropagandaLogo"  />
         </div>
 

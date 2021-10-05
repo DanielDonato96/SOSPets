@@ -3,46 +3,50 @@
 }
 
 <head>
-
+    <link rel="stylesheet" href="~/Content/CSS/Home/Account.css">
 </head>
 
-<h2>@ViewBag.Title</h2>
+<div class="account-container">
 
-<div class="panel-body">
+    <h2>@ViewBag.Title</h2>
 
-    <form id="formLogon" method="post">
-        <div id="login-summary" class="alert alert-warning" role="alert" style="display: none;">
-        </div>
+    <div class="panel-body">
 
-        <div class="group-control">
-            <label class="control-label" for="txtLogin">Login</label>
-            <input class="form-control" type="text" id="txtLogin" required value="@ViewBag.Usuario.Login" name="txtLogin" maxlength="60">
-        </div>
-
-        <div class="group-control">
-            <label class="control-label" for="txtNome">Nome</label>
-            <input class="form-control" type="text" id="txtNome" required value="@ViewBag.Usuario.Nome" name="txtNome" maxlength="100">
-        </div>
-
-        <div class="group-control">
-            <label class="control-label" for="txtLogin">Email</label>
-            <input class="form-control" type="text" id="txtEmail" required value="@ViewBag.Usuario.Email" name="txtEmail" maxlength="90">
-        </div>
-
-        <div class="form-group">
-            <label for="whatsapp" class="control-label">Whatsapp de Contato:</label>
-            <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="@ViewBag.Usuario.Whatsapp" required>
-        </div>
-
-        <div class="group-control" style="margin-top: 15px;">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <button id="btnEditAccount" type="button" class="btn btn-primary" style="width: 100%;">Alterar Dados</button>
-                </div>
-
+        <form id="formLogon" method="post">
+            <div id="login-summary" class="alert alert-warning" role="alert" style="display: none;">
             </div>
-        </div>
-    </form>
+
+            <div class="group-control">
+                <label class="control-label" for="txtLogin">Login</label>
+                <input class="form-control" type="text" id="txtLogin" required value="@ViewBag.Usuario.Login" name="txtLogin" maxlength="60">
+            </div>
+
+            <div class="group-control">
+                <label class="control-label" for="txtNome">Nome</label>
+                <input class="form-control" type="text" id="txtNome" required value="@ViewBag.Usuario.Nome" name="txtNome" maxlength="100">
+            </div>
+
+            <div class="group-control">
+                <label class="control-label" for="txtLogin">Email</label>
+                <input class="form-control" type="text" id="txtEmail" required value="@ViewBag.Usuario.Email" name="txtEmail" maxlength="90">
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp" class="control-label">Whatsapp de Contato:</label>
+                <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="@ViewBag.Usuario.Whatsapp" required>
+            </div>
+
+            <div class="group-control" style="margin-top: 15px;">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <button id="btnEditAccount" type="button" class="btn btn-primary" style="width: 100%;">Alterar Dados</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 @*Modal de notificações *@

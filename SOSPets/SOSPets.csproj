@@ -202,6 +202,7 @@
     <Content Include="Content\CSS\Home\index.css" />
     <Content Include="Content\CSS\Home\animaisLista.css" />
     <Content Include="Content\CSS\Home\animaisCategoria.css" />
+    <Content Include="Content\CSS\Home\Account.css" />
     <Content Include="Content\CSS\Site.css" />
     <Content Include="Content\CSS\Static\Static.css" />
     <Content Include="Content\Images\Animais\2iMEMp49.jpeg" />

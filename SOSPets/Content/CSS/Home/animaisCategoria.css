@@ -1,6 +1,16 @@
 ﻿.animal_categoria {
-    margin: 8px;
+    margin: 12px 8px 12px 8px;
     padding-left: 6px;
     border-style: solid;
     border-width: thin;
 }
+
+.account-container {
+    background-color: white;
+    /*padding-bottom: 66px;*/
+}
+
+    .account-container h2 {
+        text-align: center;
+        padding: 6px 0 6px 0;
+    }
