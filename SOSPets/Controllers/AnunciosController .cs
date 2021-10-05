@@ -82,7 +82,8 @@ namespace SOSPets.Controllers
 
             ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
 
-            return PartialView("AnimalList");
+            if(limit == 4) return PartialView("RecentAnimalList");
+            else return PartialView("AnimalList");
         }
 
         #endregion

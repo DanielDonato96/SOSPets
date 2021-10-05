@@ -293,6 +293,7 @@
     <Content Include="Views\Customer\AlterarSenha.cshtml" />
     <Content Include="Views\Customer\EditarConta.cshtml" />
     <Content Include="Views\Anuncios\MeusAnuncios.cshtml" />
+    <Content Include="Views\Anuncios\RecentAnimalList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

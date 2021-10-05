@@ -60,46 +60,6 @@
 
 <body>
 
-    @if (((List<vwAnimalList>)ViewBag.ListAnimal).Count > 0)
-    {
-        var total = ViewBag.TotalRecord;
-        var limit = ViewBag.LimitRecord;
-        var index = (ViewBag.IndexPage / limit);
-
-        <center>
-            <div class="pagination">
-
-                @if (total <= limit)
-                {
-                    <a href="#">&laquo;</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">&raquo;</a>
-                }
-                else
-                {
-                    <a href="#" class="page-arrow-navegator" data-navegator="previous">&laquo;</a>
-
-                    for (int i = 1; (i * limit) < (total + limit); i++)
-                    {
-                        if (i == (index + 1))
-                        {
-                            <a href="#" class="active active-page" current-page="@i">@i</a>
-                        }
-                        else
-                        {
-                            <a href="#" class="page-navegator" data-page="@i">@i</a>
-                        }
-                    }
-
-                    <a href="#" class="page-arrow-navegator" data-navegator="next">&raquo;</a>
-
-                }
-            </div>
-        </center>
-    }
-
-
-
     <div class="row" id="leilao-lista-lote" index="@ViewBag.IndexPage" total="@ViewBag.TotalRecord" limit="@ViewBag.LimitRecord">
         @if (((List<vwAnimalList>)ViewBag.ListAnimal).Count == 0)
         {

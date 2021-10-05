@@ -31,3 +31,42 @@
     height: 42vh;
     border-radius: 5px;
 }
+
+#ultimos-anuncios {
+    background-color: white;
+    /*padding-bottom: 66px;*/
+}
+
+.ultimos-anuncios-container h2 {
+    text-align: center;
+    padding: 6px 0 6px 0;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.photo-animal {
+    text-align: center;
+    display: block;
+}
+
+    .photo-animal img {
+        width: 16vw;
+        height: 20vh;
+    }
+
+@media(max-width: 660px) {
+    .photo-animal img {
+        width: 50vw;
+        height: 30vh;
+    }
+}
+
+.animais-container {
+    background-color: white;
+    padding-bottom: 66px;
+}
+
+    .animais-container h2 {
+        text-align: center;
+        
+    }

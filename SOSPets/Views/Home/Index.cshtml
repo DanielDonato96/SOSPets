@@ -40,12 +40,22 @@
 
 </div>
 
+<div class="ultimos-anuncios-container">
+
+    <h2>Anuncios Recentes</h2>
+
+    <div id="ultimos-anuncios" class="panel-body">
+
+    </div>
+
+</div>
+
 <div id="carousel-propagandas">
     @foreach (var propaganda in ViewBag.Propagandas)
     {
         <div class="carousel-item" style="text-align:center;">
             <h3 style="background-color:white;border-radius:5px;">@propaganda.Titulo</h3>
-            <img class="center propaganda_img" src="@ViewBag.PropagandaPath/@propaganda.PropagandaLogo"  />
+            <img class="center propaganda_img" src="@ViewBag.PropagandaPath/@propaganda.PropagandaLogo" />
         </div>
 
     }
