@@ -5,17 +5,33 @@
 }
 
 <head>
-    <link rel="stylesheet" href="~/Content/CSS/Static/Static.css">
+    <style>
+        .static-container {
+            background-color: white;
+            padding-bottom: 146px;
+        }
+
+        @@media(max-width:660px) {
+
+            .static-container {
+                padding-bottom: 36px;
+            }
+        }
+    </style>
 </head>
 
 <div class="static-container">
-    <center><h2 style="padding: 25px 0 15px 0;">Faq</h2></center>
+    <center><h2 style="padding: 25px 0 15px 0;">FAQ</h2></center>
     <div class="col-md-12" style="">
         <strong> P: A Equipe do SOSPets participa da troca de informações entre pessoas procurando animais e quem encontra?</strong><br />
-        R: Não, a equipe apenas divulga os dados. Cabe aos usuários agirem com seriedade e comunicarem informações
+        R: Não, a equipe apenas disponibiliza o site para divulgação dos dados. Cabe aos usuários agirem com seriedade e comunicarem informações
         incorretas;<br />
         <strong> P: Qual a abrangência do Site? </strong><br />
         R: O Site possui abrangência nacional, qualquer usuário pelo país pode criar e buscar os dados dos animais;<br />
+        <strong> P: É necessário criar uma conta para cadastrar um anúncio? </strong><br />
+        R: Sim, o sistema utiliza as contas para limitar a quantidade de anúncios por usuário;<br />
+        <strong> P: Como posso entrar em contato com um dono de um animal que eu encontrei? </strong><br />
+        R: Todos os anúncios incluem o whatsapp de contato do usuário;<br />
     </div>
     <br />
 </div>
