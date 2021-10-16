@@ -34,6 +34,15 @@
             border-color: #ccc;
         }
 
+        .disabled-edit-label {
+            margin-top: 3px;
+            color: #fff;
+            background-color: cornflowerblue;
+            border-color: #ccc;
+            pointer-events: none;
+            cursor: default;
+        }
+
         .pagination {
             display: inline-block;
         }
@@ -159,9 +168,19 @@
 
                         @if (ViewBag.UsuarioID != 0)
                         {
-                            <a href="/Home/AnimalDetalhe/?animalID=@itemAnimal.AnimalID" class="label big-label edit-label">
-                                Editar o Anúncio
-                            </a>
+                            if (itemAnimal.SituacaoAnimal == "Anúncio Ativo")
+                            {
+                                <a href="/Home/AnimalDetalhe/?animalID=@itemAnimal.AnimalID" class="label big-label edit-label">
+                                    Editar o Anúncio
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/Home/AnimalDetalhe/?animalID=@itemAnimal.AnimalID" class="label big-label disabled-edit-label">
+                                    Somente Visualização
+                                </a>
+                            }
+
                         }
                     </div>
 
