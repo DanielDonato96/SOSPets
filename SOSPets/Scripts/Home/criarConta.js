@@ -19,7 +19,7 @@ var editAccount = function () {
         success: function (data) {
             if (data.success) {
                 showNotificationModal(data.message);
-
+                setTimeout(function () { location.href = "/Home/AcessarConta"; }, 2000);
             }
             else showNotificationModal(data.message);
             
