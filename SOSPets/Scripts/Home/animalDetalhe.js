@@ -87,7 +87,7 @@ function deletarAnimal() {
             if (data.success)
             {
                 clearAnimalInputs();
-                
+                setTimeout(function () { location.href = "/Anuncios/MeusAnuncios"; }, 1000);
             }
             else {
                 showNotificationModal('Falha na exclusão do registro');
