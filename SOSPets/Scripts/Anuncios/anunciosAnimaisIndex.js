@@ -64,7 +64,8 @@ var loadListAnimais = function (pagina, limit, setPag) {
             start: start,
             limit: limit,
             estadoID: estadoID,
-            cidadeID: cidadeID
+            cidadeID: cidadeID,
+            situacaoAnimalID: 1
         },
         type: 'get',
         beforeSend: function () {

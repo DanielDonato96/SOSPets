@@ -98,7 +98,8 @@ var loadListRecentAnimais = function (pagina, limit, setPag) {
             start: 0,
             limit: 4,
             estadoID: 0,
-            cidadeID: 0
+            cidadeID: 0,
+            situacaoAnimalID: 1
         },
         type: 'get',
         beforeSend: function () {

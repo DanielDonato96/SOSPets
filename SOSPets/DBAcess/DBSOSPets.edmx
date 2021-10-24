@@ -138,6 +138,7 @@
           <Parameter Name="UsuarioID" Type="int" Mode="In" />
           <Parameter Name="Sort" Type="varchar" Mode="In" />
           <Parameter Name="Dir" Type="varchar" Mode="In" />
+          <Parameter Name="SituacaoAnimalID" Type="int" Mode="In" />
           <Parameter Name="Start" Type="int" Mode="In" />
           <Parameter Name="Limit" Type="int" Mode="In" />
           <Parameter Name="TotalRecord" Type="int" Mode="InOut" />
@@ -231,6 +232,7 @@
             <Parameter Name="UsuarioID" Mode="In" Type="Int32" />
             <Parameter Name="Sort" Mode="In" Type="String" />
             <Parameter Name="Dir" Mode="In" Type="String" />
+            <Parameter Name="SituacaoAnimalID" Mode="In" Type="Int32" />
             <Parameter Name="Start" Mode="In" Type="Int32" />
             <Parameter Name="Limit" Mode="In" Type="Int32" />
             <Parameter Name="TotalRecord" Mode="InOut" Type="Int32" />

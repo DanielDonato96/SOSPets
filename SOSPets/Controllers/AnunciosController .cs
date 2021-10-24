@@ -27,7 +27,7 @@ namespace SOSPets.Controllers
                 else ViewBag.Estado = db.estado.Where(e => e.id == estadoID).FirstOrDefault();
 
                 if (cidadeID == 0) ViewBag.Cidade = null;
-                else ViewBag.Cidade = db.cidade.Where(c => c.id == cidadeID).FirstOrDefault();              
+                else ViewBag.Cidade = db.cidade.Where(c => c.id == cidadeID).FirstOrDefault();
             }
             return View();
         }
@@ -56,22 +56,21 @@ namespace SOSPets.Controllers
             return View(anuncioAnimal);
         }
 
-        public PartialViewResult AnunciosAnimaisListSearch(int start, int limit, int estadoID, int cidadeID, int usuarioID = 0)
+        public PartialViewResult AnunciosAnimaisListSearch(int start, int limit, int estadoID, int cidadeID, int usuarioID = 0, int situacaoAnimalID = 0)
         {
             ObjectParameter total = new ObjectParameter("TotalRecord", typeof(int));
             using (SOSPETSEntities db = new SOSPETSEntities())
             {
                 List<vwAnimalList> listaAnimais;
-
-                var i = RouteData;
-                    listaAnimais = db.proc_002_GetAnimalList(estadoID,
-                                                                cidadeID,
-                                                                usuarioID,
-                                                                "DtDesaparecimento",
-                                                                "DESC",
-                                                                start,
-                                                                limit,
-                                                                total).ToList();
+                listaAnimais = db.proc_002_GetAnimalList(estadoID,
+                                                            cidadeID,
+                                                            usuarioID,
+                                                            "DtDesaparecimento",
+                                                            "DESC",
+                                                            situacaoAnimalID,
+                                                            start,
+                                                            limit,
+                                                            total).ToList();
 
                 ViewBag.ListAnimal = listaAnimais;
                 ViewBag.TotalRecord = total.Value;
@@ -82,7 +81,7 @@ namespace SOSPets.Controllers
 
             ViewBag.FotoAnimalPath = WebConfigurationManager.AppSettings["LocalHostPath"] + "/Content/Images/Animais";
 
-            if(limit == 4) return PartialView("RecentAnimalList");
+            if (limit == 4) return PartialView("RecentAnimalList");
             else return PartialView("AnimalList");
         }
 

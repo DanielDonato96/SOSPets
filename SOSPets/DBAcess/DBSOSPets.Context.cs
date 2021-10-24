@@ -67,7 +67,7 @@ namespace SOSPets.DBAcess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwCidades>("proc_005_GetCidades", estadoIDParameter);
         }
     
-        public virtual ObjectResult<vwAnimalList> proc_002_GetAnimalList(Nullable<int> estadoID, Nullable<int> cidadeID, Nullable<int> usuarioID, string sort, string dir, Nullable<int> start, Nullable<int> limit, ObjectParameter totalRecord)
+        public virtual ObjectResult<vwAnimalList> proc_002_GetAnimalList(Nullable<int> estadoID, Nullable<int> cidadeID, Nullable<int> usuarioID, string sort, string dir, Nullable<int> situacaoAnimalID, Nullable<int> start, Nullable<int> limit, ObjectParameter totalRecord)
         {
             var estadoIDParameter = estadoID.HasValue ?
                 new ObjectParameter("EstadoID", estadoID) :
@@ -89,6 +89,10 @@ namespace SOSPets.DBAcess
                 new ObjectParameter("Dir", dir) :
                 new ObjectParameter("Dir", typeof(string));
     
+            var situacaoAnimalIDParameter = situacaoAnimalID.HasValue ?
+                new ObjectParameter("SituacaoAnimalID", situacaoAnimalID) :
+                new ObjectParameter("SituacaoAnimalID", typeof(int));
+    
             var startParameter = start.HasValue ?
                 new ObjectParameter("Start", start) :
                 new ObjectParameter("Start", typeof(int));
@@ -97,7 +101,7 @@ namespace SOSPets.DBAcess
                 new ObjectParameter("Limit", limit) :
                 new ObjectParameter("Limit", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalList>("proc_002_GetAnimalList", estadoIDParameter, cidadeIDParameter, usuarioIDParameter, sortParameter, dirParameter, startParameter, limitParameter, totalRecord);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<vwAnimalList>("proc_002_GetAnimalList", estadoIDParameter, cidadeIDParameter, usuarioIDParameter, sortParameter, dirParameter, situacaoAnimalIDParameter, startParameter, limitParameter, totalRecord);
         }
     }
 }
