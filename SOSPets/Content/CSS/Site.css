@@ -1,6 +1,6 @@
 ﻿body {
-    background: linear-gradient(to bottom, #DDDDDD 73%, #DDDDDD 100%);
-    background-image: url(/Content/Images/Layout/footer_rodape.jpeg);
+    
+    background-color: whitesmoke !important;
 }
 
 .link-footer {

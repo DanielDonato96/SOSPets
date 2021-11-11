@@ -1,8 +1,24 @@
 ﻿.jumbotron {
     margin-top: 22px;
-    background-image: url('../../Images/Layout/logo_busca.jpeg');
+    background-image: url('../../Images/Layout/teste_logo_carol.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+
+@media(max-width:600px) {
+    #btnPesquisaAnimal {
+        width: 94% !important;
+    }
+}
+
+#btnPesquisaAnimal {
+    border-radius: 5px;
+    border: none;
+    padding: 3px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .container-pesquisa-animal {
@@ -68,5 +84,4 @@
 
     .animais-container h2 {
         text-align: center;
-        
     }

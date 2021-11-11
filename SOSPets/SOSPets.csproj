@@ -217,8 +217,11 @@
     <Content Include="Content\Images\Layout\logoSOSPETS.png" />
     <Content Include="Content\Images\Layout\logo_busca.jpeg" />
     <Content Include="Content\Images\Layout\logo_rodape.jpeg" />
+    <Content Include="Content\Images\Layout\teste_logo_carol.jpg" />
+    <Content Include="Content\Images\Propagandas\propaganda_03.jpeg" />
     <Content Include="Content\Images\Propagandas\propaganda_01.jpeg" />
     <Content Include="Content\Images\Propagandas\propaganda_02.jpeg" />
+    <Content Include="Content\Images\Propagandas\propaganda_04.jpeg" />
     <Content Include="DBAcess\DBSOSPets.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DBSOSPets.edmx</DependentUpon>
