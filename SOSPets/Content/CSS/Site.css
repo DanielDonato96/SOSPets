@@ -47,19 +47,20 @@ a:link {
 }
 
 .status-grey {
-    color: #fff;
-    background-color: yellow;
-    border-color: #ccc;
+    color: yellow;
 }
 
 .status-red {
-    color: #fff;
-    background-color: red;
-    border-color: #ccc;
+    color: red;
 }
 
 .status-green {
-    color: #fff;
-    background-color: green;
-    border-color: #ccc;
+    color: green;
+}
+
+.status_animal {
+    text-align:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
