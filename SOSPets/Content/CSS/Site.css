@@ -64,3 +64,33 @@ a:link {
     justify-content: center;
     align-items: center;
 }
+
+@media(min-width:766px){
+
+    #mobile-user-menu {
+        visibility: hidden;
+        height: 5px;
+    }
+
+}
+
+@media(max-width:765px) {
+
+    #desktop-user-menu {
+        visibility: hidden;
+        height: 5px;
+    }
+}
+
+#mobile-user-menu a{
+    text-decoration: none;
+    color: white;
+}
+
+#mobile-user-menu span {
+    color: white;
+}
+
+#mobile-user-menu li {
+    list-style-type: none;
+}

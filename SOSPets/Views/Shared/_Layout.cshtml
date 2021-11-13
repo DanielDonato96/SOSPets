@@ -33,7 +33,7 @@
                 </ul>
                 @if (Session["UserName"] != null)
                 {
-                    <div class="btn-group dropdown-menu-header mobile-header-icons show" style="float:right">
+                    <div id="desktop-user-menu" class="btn-group dropdown-menu-header show" style="float:right">
                         <div type="button" class="navbar-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <div class="navbar-nav" style="margin-top:12px;margin-right:12px">
                                 <div class="">
@@ -43,6 +43,19 @@
                             </div>
                         </div>
                         <ul class="dropdown-menu" id="drop-menu-account">
+                            <li><a href="/Customer/AlterarSenha">Alterar Senha</a></li>
+                            <li><a href="/Customer/EditarConta">Editar Cadastro</a></li>
+                            <li><a href="/Anuncios/MeusAnuncios">Meus Anúncios</a></li>
+                            @if ((string)Session["UserName"] == "daniel")
+                            {
+                                <li><a href="/Home/AnimaisCategorias">Cadastrar Espécies</a></li>
+                            }
+                            <li><a href="/Customer/Logout">Sair</a></li>
+                        </ul>
+                    </div>
+                    <div id="mobile-user-menu">
+                        <ul>
+                            <li><span>@string.Format("Olá, {0}", Session["UserName"])</span></li>
                             <li><a href="/Customer/AlterarSenha">Alterar Senha</a></li>
                             <li><a href="/Customer/EditarConta">Editar Cadastro</a></li>
                             <li><a href="/Anuncios/MeusAnuncios">Meus Anúncios</a></li>
