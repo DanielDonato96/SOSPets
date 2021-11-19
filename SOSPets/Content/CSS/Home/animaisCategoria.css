@@ -5,6 +5,15 @@
     border-width: thin;
 }
 
+.nome_categoria_atualizar {
+    margin: 3px;
+    border-radius: 4px;
+}
+
+.animal_categoria button {
+    margin: 3px;
+}
+
 .account-container {
     background-color: white;
     /*padding-bottom: 66px;*/
