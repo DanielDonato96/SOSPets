@@ -57,7 +57,10 @@ function salvarCategoria(id, nome) {
                          '<input data-index="' + data.id + '" class="nome_categoria_atualizar" type="text" name="nome_categoria_atualizar">' +
                          '<button class="btn-update" data-ID="' + data.id + '">Atualizar</button>' +
                          '<button class="btn-delete" data-ID="' + data.id + '" data-toggle="modal" data-target="#deleteAnimaisCategoriasConfirmation">Deletar</button>' +
-                         '</div>');
+                        '</div>');
+
+                    $('.btn-save').attr('disabled', true);
+
                 }
                 else
                 {
